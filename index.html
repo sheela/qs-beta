@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quillster — Write with Confidence</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a3a5c;
+    --blue: #2563a8;
+    --sky: #e8f2fc;
+    --gold: #f59e0b;
+    --gold-dark: #92580a;
+    --gold-light: #fef3c7;
+    --green: #16a34a;
+    --green-light: #dcfce7;
+    --red: #dc2626;
+    --red-light: #fee2e2;
+    --gray: #64748b;
+    --gray-light: #f1f5f9;
+    --white: #ffffff;
+    --text: #1e293b;
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #f0f6ff;
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--navy);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  }
+  .logo {
+    font-family: 'Baloo 2', cursive;
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo-wing { font-size: 26px; }
+  .free-badge {
+    background: var(--gold);
+    color: var(--gold-dark);
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── SCREENS ── */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ── HOME SCREEN ── */
+  .hero {
+    background: linear-gradient(160deg, var(--navy) 0%, #1e4d8c 100%);
+    padding: 36px 20px 28px;
+    text-align: center;
+    color: #fff;
+  }
+  .hero h1 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .hero p {
+    font-size: 15px;
+    color: #b3cde8;
+    max-width: 340px;
+    margin: 0 auto 20px;
+    line-height: 1.6;
+  }
+  .level-tabs {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 4px;
+  }
+  .level-tab {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    border: 2px solid transparent;
+    border-radius: 30px;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    transition: all 0.15s;
+  }
+  .level-tab.active {
+    background: #fff;
+    color: var(--navy);
+  }
+  .level-tab:hover:not(.active) { border-color: rgba(255,255,255,0.4); }
+
+  /* ── EXERCISE CARDS ── */
+  .section-label {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--gray);
+    padding: 18px 20px 10px;
+  }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+    gap: 12px;
+    padding: 0 16px 20px;
+  }
+  .ex-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 18px 14px 14px;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.18s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .ex-card:hover {
+    border-color: var(--blue);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37,99,168,0.14);
+  }
+  .ex-icon { font-size: 34px; margin-bottom: 10px; }
+  .ex-name { font-size: 14px; font-weight: 800; color: var(--navy); margin-bottom: 5px; }
+  .ex-desc { font-size: 12px; color: var(--gray); line-height: 1.4; margin-bottom: 8px; }
+  .ex-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 800;
+    border-radius: 20px;
+    padding: 3px 9px;
+    background: var(--green-light);
+    color: var(--green);
+  }
+  .ex-badge.locked {
+    background: var(--gold-light);
+    color: var(--gold-dark);
+  }
+  .coming-soon-tag {
+    font-size: 10px;
+    color: var(--gray);
+    font-weight: 700;
+  }
+
+  /* ── EXERCISE SCREEN ── */
+  .ex-header {
+    background: var(--navy);
+    color: #fff;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .back-btn {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #fff;
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+  }
+  .ex-header-info { flex: 1; }
+  .ex-header-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .ex-header-sub { font-size: 12px; color: #b3cde8; margin-top: 2px; }
+
+  .progress-bar-wrap {
+    background: rgba(255,255,255,0.15);
+    border-radius: 20px;
+    height: 7px;
+    margin: 0 20px 0;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    background: var(--gold);
+    height: 100%;
+    border-radius: 20px;
+    transition: width 0.4s ease;
+  }
+  .progress-text {
+    font-size: 11px;
+    color: #b3cde8;
+    text-align: right;
+    padding: 4px 20px 12px;
+  }
+
+  .question-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    margin: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  .q-meta {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .q-tag {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .q-tag.level { background: var(--sky); color: var(--blue); }
+  .q-tag.topic { background: var(--gold-light); color: var(--gold-dark); }
+
+  .q-instruction {
+    font-size: 13px;
+    color: var(--gray);
+    margin-bottom: 12px;
+    line-height: 1.5;
+    font-weight: 600;
+    background: var(--gray-light);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    border-left: 4px solid var(--blue);
+  }
+  .q-sentence {
+    font-size: 17px;
+    line-height: 1.7;
+    background: var(--sky);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .q-sentence .err-highlight {
+    background: #fde8e8;
+    color: var(--red);
+    border-radius: 4px;
+    padding: 0 3px;
+    text-decoration: underline wavy var(--red);
+  }
+
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice-btn {
+    border: 2.5px solid #dde6f0;
+    border-radius: 12px;
+    padding: 13px 16px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    background: var(--white);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    text-align: left;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .choice-btn:hover:not(:disabled) {
+    border-color: var(--blue);
+    background: var(--sky);
+    color: var(--navy);
+  }
+  .choice-btn:disabled { cursor: default; }
+  .choice-btn.correct {
+    border-color: var(--green);
+    background: var(--green-light);
+    color: #14532d;
+  }
+  .choice-btn.wrong {
+    border-color: var(--red);
+    background: var(--red-light);
+    color: #7f1d1d;
+  }
+  .choice-letter {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--gray-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    flex-shrink: 0;
+    color: var(--gray);
+  }
+  .choice-btn.correct .choice-letter { background: var(--green); color: #fff; }
+  .choice-btn.wrong .choice-letter { background: var(--red); color: #fff; }
+
+  .feedback-box {
+    margin: 14px 0 0;
+    padding: 14px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.6;
+    display: none;
+  }
+  .feedback-box.show { display: block; }
+  .feedback-box.correct { background: var(--green-light); color: #14532d; border-left: 4px solid var(--green); }
+  .feedback-box.wrong { background: var(--red-light); color: #7f1d1d; border-left: 4px solid var(--red); }
+  .feedback-explain {
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 6px;
+    opacity: 0.85;
+  }
+
+  .next-btn {
+    display: block;
+    width: calc(100% - 32px);
+    margin: 14px 16px;
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    padding: 16px;
+    font-size: 17px;
+    font-weight: 800;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    transition: background 0.15s;
+    display: none;
+  }
+  .next-btn:hover { background: var(--navy); }
+  .next-btn.visible { display: block; }
+
+  /* ── SCORE SCREEN ── */
+  .score-screen {
+    text-align: center;
+    padding: 40px 24px;
+  }
+  .score-emoji { font-size: 64px; margin-bottom: 16px; }
+  .score-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .score-sub { font-size: 15px; color: var(--gray); margin-bottom: 24px; }
+  .score-big {
+    font-family: 'Baloo 2', cursive;
+    font-size: 56px;
+    font-weight: 800;
+    color: var(--blue);
+    margin-bottom: 6px;
+  }
+  .score-label { font-size: 14px; color: var(--gray); margin-bottom: 32px; }
+  .score-actions { display: flex; flex-direction: column; gap: 12px; max-width: 320px; margin: 0 auto; }
+  .btn-primary {
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    padding: 16px 24px;
+    font-size: 17px;
+    font-weight: 800;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    transition: background 0.15s;
+  }
+  .btn-primary:hover { background: var(--navy); }
+  .btn-secondary {
+    background: var(--white);
+    color: var(--navy);
+    border: 2px solid var(--navy);
+    border-radius: var(--radius);
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    transition: all 0.15s;
+  }
+  .btn-secondary:hover { background: var(--sky); }
+
+  /* ── MAD LIBS ── */
+  .madlib-setup { padding: 0 16px 20px; }
+  .madlib-input-group { margin-bottom: 14px; }
+  .madlib-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+    display: block;
+  }
+  .madlib-hint {
+    font-size: 11px;
+    color: var(--gray);
+    margin-bottom: 6px;
+    display: block;
+  }
+  .madlib-input {
+    width: 100%;
+    border: 2px solid #dde6f0;
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    font-size: 16px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    color: var(--navy);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .madlib-input:focus { border-color: var(--blue); background: var(--sky); }
+  .madlib-story {
+    background: var(--sky);
+    border-radius: var(--radius);
+    padding: 20px;
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--navy);
+    font-weight: 600;
+    margin: 16px;
+  }
+  .madlib-fill {
+    background: var(--gold-light);
+    color: var(--gold-dark);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-weight: 800;
+    font-style: italic;
+  }
+
+  /* ── STORY STARTER ── */
+  .story-prompt-card {
+    background: var(--sky);
+    border-radius: var(--radius);
+    margin: 16px;
+    padding: 18px;
+    border-left: 5px solid var(--blue);
+  }
+  .story-prompt-label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+  .story-prompt-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.7;
+  }
+  .story-hints {
+    margin: 0 16px 12px;
+    padding: 12px 16px;
+    background: var(--gold-light);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    color: var(--gold-dark);
+    font-weight: 700;
+  }
+  .story-textarea {
+    width: calc(100% - 32px);
+    margin: 0 16px;
+    border: 2px solid #dde6f0;
+    border-radius: var(--radius);
+    padding: 14px;
+    font-size: 15px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    color: var(--navy);
+    min-height: 160px;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.15s;
+    display: block;
+  }
+  .story-textarea:focus { border-color: var(--blue); background: var(--sky); }
+  .word-count {
+    text-align: right;
+    font-size: 12px;
+    color: var(--gray);
+    padding: 6px 16px;
+    font-weight: 600;
+  }
+
+  /* ── FIX THE ORDER ── */
+  .word-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 4px 0 16px;
+  }
+  .word-chip {
+    background: var(--white);
+    border: 2.5px solid #dde6f0;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    color: var(--navy);
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .word-chip:hover:not(.used) { border-color: var(--blue); background: var(--sky); }
+  .word-chip.used { opacity: 0.3; cursor: default; }
+  .answer-area {
+    min-height: 56px;
+    background: var(--sky);
+    border: 2px dashed #b3cde8;
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    margin-bottom: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  .answer-word {
+    background: var(--blue);
+    color: #fff;
+    border-radius: 8px;
+    padding: 7px 13px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.12s;
+  }
+  .answer-word:hover { background: var(--red); }
+  .answer-placeholder {
+    font-size: 14px;
+    color: #93b4d0;
+    font-weight: 600;
+  }
+  .clear-btn {
+    background: none;
+    border: 2px solid #dde6f0;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gray);
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    margin-bottom: 10px;
+  }
+  .clear-btn:hover { border-color: var(--red); color: var(--red); }
+  .check-btn {
+    display: block;
+    width: 100%;
+    background: var(--gold);
+    color: var(--gold-dark);
+    border: none;
+    border-radius: var(--radius);
+    padding: 15px;
+    font-size: 17px;
+    font-weight: 800;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    transition: background 0.15s;
+    margin-bottom: 12px;
+  }
+  .check-btn:hover { background: #e08c00; }
+
+  /* ── COMING SOON SCREEN ── */
+  .coming-soon-screen {
+    text-align: center;
+    padding: 50px 24px;
+  }
+  .coming-soon-screen .icon { font-size: 56px; margin-bottom: 16px; }
+  .coming-soon-screen h2 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .coming-soon-screen p { font-size: 15px; color: var(--gray); margin-bottom: 24px; line-height: 1.6; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 400px) {
+    .cards-grid { grid-template-columns: 1fr 1fr; }
+    .hero h1 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="logo-wing">🪶</span> Quillster
+  </div>
+  <span class="free-badge">FREE</span>
+</header>
+
+<!-- ════════════════════════════════ HOME ════════════════════════════════ -->
+<div id="screen-home" class="screen active">
+  <div class="hero">
+    <h1>Write Better.<br>Dream Bigger.</h1>
+    <p>Fun exercises to help you write English with confidence — one step at a time.</p>
+    <div class="level-tabs">
+      <button class="level-tab active" onclick="setLevel('beginner', this)">Beginner</button>
+      <button class="level-tab" onclick="setLevel('intermediate', this)">Intermediate</button>
+    </div>
+  </div>
+
+  <div class="section-label">Choose Your Practice</div>
+  <div class="cards-grid">
+    <div class="ex-card" onclick="startExercise('find-error')">
+      <div class="ex-icon">🔍</div>
+      <div class="ex-name">Find the Error</div>
+      <div class="ex-desc">Spot the one mistake hiding in the sentence</div>
+      <div class="ex-badge">Free</div>
+    </div>
+    <div class="ex-card" onclick="startExercise('fix-order')">
+      <div class="ex-icon">🔀</div>
+      <div class="ex-name">Fix the Order</div>
+      <div class="ex-desc">Tap words to build the correct sentence</div>
+      <div class="ex-badge">Free</div>
+    </div>
+    <div class="ex-card" onclick="startExercise('madlibs')">
+      <div class="ex-icon">🎭</div>
+      <div class="ex-name">Mad Libs</div>
+      <div class="ex-desc">Fill blanks with your own funny words</div>
+      <div class="ex-badge">Free</div>
+    </div>
+    <div class="ex-card" onclick="startExercise('story')">
+      <div class="ex-icon">📖</div>
+      <div class="ex-name">Story Starter</div>
+      <div class="ex-desc">Finish a story — use your imagination!</div>
+      <div class="ex-badge">Free</div>
+    </div>
+    <div class="ex-card" onclick="startExercise('picture')">
+      <div class="ex-icon">🖼️</div>
+      <div class="ex-name">Picture Write</div>
+      <div class="ex-desc">Write 3 sentences about what you see</div>
+      <div class="ex-badge locked">Coming Soon</div>
+    </div>
+    <div class="ex-card" onclick="startExercise('diary')">
+      <div class="ex-icon">📔</div>
+      <div class="ex-name">Character Diary</div>
+      <div class="ex-desc">Write a diary entry as a fun character</div>
+      <div class="ex-badge locked">Coming Soon</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ FIND THE ERROR ════════════════════════════════ -->
+<div id="screen-find-error" class="screen">
+  <div class="ex-header">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <div class="ex-header-info">
+      <div class="ex-header-title">🔍 Find the Error</div>
+      <div class="ex-header-sub" id="fe-level-label">Beginner · Punctuation & Grammar</div>
+    </div>
+  </div>
+  <div class="progress-bar-wrap" style="margin-top:10px;">
+    <div class="progress-bar-fill" id="fe-progress-fill" style="width:0%"></div>
+  </div>
+  <div class="progress-text" id="fe-progress-text">Question 1 of 5</div>
+
+  <div class="question-card">
+    <div class="q-meta">
+      <span class="q-tag level" id="fe-q-level">Beginner</span>
+      <span class="q-tag topic" id="fe-q-topic">Punctuation</span>
+    </div>
+    <div class="q-instruction" id="fe-instruction">Read the sentence carefully. Choose the answer that correctly identifies the ONE error in the sentence.</div>
+    <div class="q-sentence" id="fe-sentence"></div>
+    <div class="choices" id="fe-choices"></div>
+    <div class="feedback-box" id="fe-feedback">
+      <div id="fe-feedback-main"></div>
+      <div class="feedback-explain" id="fe-feedback-explain"></div>
+    </div>
+  </div>
+  <button class="next-btn" id="fe-next-btn" onclick="feNext()">Next Question →</button>
+</div>
+
+<!-- ════════════════════════════════ FIX THE ORDER ════════════════════════════════ -->
+<div id="screen-fix-order" class="screen">
+  <div class="ex-header">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <div class="ex-header-info">
+      <div class="ex-header-title">🔀 Fix the Order</div>
+      <div class="ex-header-sub">Tap words in the right order to form a correct sentence</div>
+    </div>
+  </div>
+  <div class="progress-bar-wrap" style="margin-top:10px;">
+    <div class="progress-bar-fill" id="fo-progress-fill" style="width:0%"></div>
+  </div>
+  <div class="progress-text" id="fo-progress-text">Question 1 of 5</div>
+
+  <div class="question-card">
+    <div class="q-meta">
+      <span class="q-tag level" id="fo-q-level">Beginner</span>
+      <span class="q-tag topic" id="fo-q-topic">Word Order</span>
+    </div>
+    <div class="q-instruction">Tap the words below in the correct order to build the sentence. Tap a word in your answer to remove it.</div>
+    <div style="font-size:13px;color:var(--gray);margin-bottom:8px;font-weight:600;">Your sentence:</div>
+    <div class="answer-area" id="fo-answer-area">
+      <span class="answer-placeholder" id="fo-placeholder">Tap words below to start...</span>
+    </div>
+    <button class="clear-btn" onclick="foClear()">✕ Clear all</button>
+    <div style="font-size:13px;color:var(--gray);margin-bottom:8px;font-weight:600;">Word bank:</div>
+    <div class="word-bank" id="fo-word-bank"></div>
+    <button class="check-btn" id="fo-check-btn" onclick="foCheck()">✓ Check My Answer</button>
+    <div class="feedback-box" id="fo-feedback">
+      <div id="fo-feedback-main"></div>
+      <div class="feedback-explain" id="fo-feedback-explain"></div>
+    </div>
+  </div>
+  <button class="next-btn" id="fo-next-btn" onclick="foNext()">Next Question →</button>
+</div>
+
+<!-- ════════════════════════════════ MAD LIBS ════════════════════════════════ -->
+<div id="screen-madlibs" class="screen">
+  <div class="ex-header">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <div class="ex-header-info">
+      <div class="ex-header-title">🎭 Mad Libs</div>
+      <div class="ex-header-sub">Fill the blanks — then read your silly story!</div>
+    </div>
+  </div>
+  <div id="madlib-input-screen">
+    <div style="padding:14px 16px 0; font-size:14px; font-weight:700; color:var(--navy);">
+      Enter your words first — don't peek at the story yet! 😄
+    </div>
+    <div class="madlib-setup" id="madlib-inputs" style="padding-top:10px;"></div>
+    <div style="padding: 0 16px 20px;">
+      <button class="btn-primary" style="width:100%; font-size:17px;" onclick="mlReveal()">Reveal My Story! 🎉</button>
+    </div>
+  </div>
+  <div id="madlib-story-screen" style="display:none;">
+    <div class="madlib-story" id="madlib-story-text"></div>
+    <div style="padding: 0 16px 20px; display:flex; flex-direction:column; gap:10px;">
+      <button class="btn-primary" onclick="mlReset()">Try Again with New Words 🔄</button>
+      <button class="btn-secondary" onclick="mlNext()">Try a Different Story →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ STORY STARTER ════════════════════════════════ -->
+<div id="screen-story" class="screen">
+  <div class="ex-header">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <div class="ex-header-info">
+      <div class="ex-header-title">📖 Story Starter</div>
+      <div class="ex-header-sub">Continue the story in your own words</div>
+    </div>
+  </div>
+  <div class="progress-bar-wrap" style="margin-top:10px;">
+    <div class="progress-bar-fill" id="ss-progress-fill" style="width:0%"></div>
+  </div>
+  <div class="progress-text" id="ss-progress-text">Story 1 of 4</div>
+
+  <div class="story-prompt-card">
+    <div class="story-prompt-label">📌 Story Beginning — Read this carefully</div>
+    <div class="story-prompt-text" id="ss-prompt"></div>
+  </div>
+  <div class="story-hints" id="ss-hints"></div>
+  <div class="q-instruction" style="margin:0 16px 10px; display:block;">Write at least 3–5 sentences to continue the story. Use full stops, commas, and capital letters correctly.</div>
+  <textarea class="story-textarea" id="ss-textarea" placeholder="Start writing here..." oninput="ssWordCount()"></textarea>
+  <div class="word-count" id="ss-word-count">0 words</div>
+  <div style="padding: 0 16px 8px;">
+    <button class="check-btn" onclick="ssSubmit()">✓ I'm Done — See Tips</button>
+    <div class="feedback-box" id="ss-feedback" style="margin-top:0;">
+      <div id="ss-feedback-main"></div>
+    </div>
+  </div>
+  <button class="next-btn" id="ss-next-btn" onclick="ssNext()">Next Story →</button>
+</div>
+
+<!-- ════════════════════════════════ COMING SOON ════════════════════════════════ -->
+<div id="screen-coming-soon" class="screen">
+  <div class="ex-header">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <div class="ex-header-info">
+      <div class="ex-header-title" id="cs-title">Coming Soon</div>
+    </div>
+  </div>
+  <div class="coming-soon-screen">
+    <div class="icon" id="cs-icon">🚧</div>
+    <h2 id="cs-name">Exercise Coming Soon!</h2>
+    <p id="cs-desc">This exercise is being built with care. Check back soon — it's going to be great!</p>
+    <button class="btn-primary" onclick="goHome()">← Back to Home</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ SCORE ════════════════════════════════ -->
+<div id="screen-score" class="screen">
+  <div class="score-screen">
+    <div class="score-emoji" id="score-emoji">🌟</div>
+    <div class="score-title" id="score-title">Well Done!</div>
+    <div class="score-sub" id="score-sub">You finished the exercise!</div>
+    <div class="score-big" id="score-number">4/5</div>
+    <div class="score-label" id="score-label">Correct Answers</div>
+    <div style="padding: 12px 24px 20px; background: var(--sky); border-radius: var(--radius); margin-bottom: 28px; font-size:14px; color:var(--navy); font-weight:700; line-height:1.6;" id="score-message"></div>
+    <div class="score-actions">
+      <button class="btn-primary" id="score-replay-btn" onclick="replayExercise()">Try Again 🔄</button>
+      <button class="btn-secondary" onclick="goHome()">← Choose Another Exercise</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════
+let currentLevel = 'beginner';
+let currentExercise = '';
+let currentQ = 0;
+let score = 0;
+let answered = false;
+
+// ══════════════════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+function goHome() { showScreen('screen-home'); }
+function setLevel(level, btn) {
+  currentLevel = level;
+  document.querySelectorAll('.level-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function startExercise(type) {
+  currentExercise = type;
+  currentQ = 0;
+  score = 0;
+  if (type === 'find-error') { feStart(); showScreen('screen-find-error'); }
+  else if (type === 'fix-order') { foStart(); showScreen('screen-fix-order'); }
+  else if (type === 'madlibs') { mlStart(); showScreen('screen-madlibs'); }
+  else if (type === 'story') { ssStart(); showScreen('screen-story'); }
+  else if (type === 'picture') {
+    document.getElementById('cs-icon').textContent = '🖼️';
+    document.getElementById('cs-name').textContent = 'Picture Write';
+    document.getElementById('cs-title').textContent = '🖼️ Picture Write';
+    document.getElementById('cs-desc').textContent = 'Soon you will see a picture of a familiar scene — a market, a classroom, a river — and write 3–5 sentences describing what is happening. This exercise is being built now!';
+    showScreen('screen-coming-soon');
+  }
+  else if (type === 'diary') {
+    document.getElementById('cs-icon').textContent = '📔';
+    document.getElementById('cs-name').textContent = 'Character Diary';
+    document.getElementById('cs-title').textContent = '📔 Character Diary';
+    document.getElementById('cs-desc').textContent = 'You will pick a fun character — a goat, a kite, a mango tree — and write one diary entry from their point of view. Creative and fun! Coming very soon.';
+    showScreen('screen-coming-soon');
+  }
+}
+
+function showScore(exerciseName) {
+  const total = currentQ;
+  const pct = Math.round((score / total) * 100);
+  document.getElementById('score-number').textContent = score + '/' + total;
+  document.getElementById('score-label').textContent = 'Correct Answers';
+  let emoji = '🌟', title = 'Excellent!', sub = '';
+  if (pct === 100) { emoji = '🏆'; title = 'Perfect Score!'; sub = 'You got every single one right!'; }
+  else if (pct >= 80) { emoji = '🌟'; title = 'Great Job!'; sub = 'You are doing really well!'; }
+  else if (pct >= 60) { emoji = '👍'; title = 'Good Effort!'; sub = 'Keep practising — you are improving!'; }
+  else { emoji = '💪'; title = 'Keep Going!'; sub = 'Every mistake helps you learn. Try again!'; }
+  document.getElementById('score-emoji').textContent = emoji;
+  document.getElementById('score-title').textContent = title;
+  document.getElementById('score-sub').textContent = sub;
+  const messages = {100:'Amazing! You found every error perfectly.', 80:'Nearly perfect! Review the ones you missed and try again.', 60:'Good try! Read the explanations for the ones you missed.', 0:'Don\'t worry — learning takes practice. Read each explanation carefully and try again!'};
+  document.getElementById('score-message').textContent = pct === 100 ? messages[100] : pct >= 80 ? messages[80] : pct >= 60 ? messages[60] : messages[0];
+  document.getElementById('score-replay-btn').onclick = () => startExercise(currentExercise);
+  showScreen('screen-score');
+}
+
+function replayExercise() { startExercise(currentExercise); }
+
+// ══════════════════════════════════════════════════════════
+// FIND THE ERROR — DATA
+// ══════════════════════════════════════════════════════════
+const feQuestions = {
+  beginner: [
+    {
+      sentence: "Raju go to school every day with his friends.",
+      topic: "Verb Form",
+      instruction: "Read the sentence carefully. Choose the answer that correctly identifies the ONE grammatical error in the sentence.",
+      choices: [
+        { text: 'The word "every" should be "each"', correct: false },
+        { text: '"go" should be "goes" — because Raju is one person (he/she/it), the verb needs an -s ending', correct: true },
+        { text: '"friends" should be "friend"', correct: false },
+        { text: '"with" should be "and"', correct: false },
+      ],
+      explain: 'Rule: When the subject is he, she, or it (singular), add -s to the verb in simple present tense. Raju → he → "goes".'
+    },
+    {
+      sentence: "She dont know the answer to the question.",
+      topic: "Auxiliary Verb",
+      instruction: "Read the sentence carefully. Choose the answer that correctly identifies the ONE grammatical error in the sentence.",
+      choices: [
+        { text: '"She" should be "Her"', correct: false },
+        { text: '"question" should be "questions"', correct: false },
+        { text: '"dont" should be "doesn\'t" — the correct negative form for she/he/it is "does not" or "doesn\'t"', correct: true },
+        { text: '"know" should be "knows"', correct: false },
+      ],
+      explain: 'Rule: With he, she, or it, we use "does not" (or "doesn\'t"), never "don\'t". "Don\'t" is used with I, you, we, and they.'
+    },
+    {
+      sentence: "The children plays in the garden after school.",
+      topic: "Subject-Verb Agreement",
+      instruction: "Read the sentence carefully. Choose the answer that correctly identifies the ONE grammatical error in the sentence.",
+      choices: [
+        { text: '"garden" should be "park"', correct: false },
+        { text: '"plays" should be "play" — "children" is a plural noun, so the verb must also be plural', correct: true },
+        { text: '"after" should be "before"', correct: false },
+        { text: '"The" should be "A"', correct: false },
+      ],
+      explain: 'Rule: "Children" is the plural of "child." Plural subjects take the base form of the verb — "play," not "plays."'
+    },
+    {
+      sentence: "He gived his lunch to the hungry dog.",
+      topic: "Irregular Past Tense",
+      instruction: "Read the sentence carefully. Choose the answer that correctly identifies the ONE error in verb tense.",
+      choices: [
+        { text: '"hungry" should be "hungrier"', correct: false },
+        { text: '"his" should be "him"', correct: false },
+        { text: '"gived" should be "gave" — "give" is an irregular verb, its past tense is "gave"', correct: true },
+        { text: '"dog" should be "dogs"', correct: false },
+      ],
+      explain: 'Rule: "Give" is an irregular verb. You cannot add -ed to form its past tense. The correct past tense is "gave."'
+    },
+    {
+      sentence: "My mother cook rice and dal every evening.",
+      topic: "Verb Form",
+      instruction: "Read the sentence carefully. Choose the answer that correctly identifies the ONE grammatical error in the sentence.",
+      choices: [
+        { text: '"rice" should be "Rice"', correct: false },
+        { text: '"cook" should be "cooks" — with "my mother" (she), the verb needs an -s ending', correct: true },
+        { text: '"every" should be "each"', correct: false },
+        { text: '"and" should be "or"', correct: false },
+      ],
+      explain: 'Rule: "My mother" = she (singular). In simple present tense, singular subjects take verb + s: "cooks," not "cook."'
+    }
+  ],
+  intermediate: [
+    {
+      sentence: "Neither the teacher nor the students was ready for the surprise test.",
+      topic: "Subject-Verb Agreement",
+      instruction: "Read the sentence carefully. It contains ONE error in subject-verb agreement. Choose the answer that correctly identifies it.",
+      choices: [
+        { text: '"Neither" should be "Either"', correct: false },
+        { text: '"was" should be "were" — when using "neither...nor," the verb agrees with the subject closest to it ("students"), which is plural', correct: true },
+        { text: '"surprise" should be "surprised"', correct: false },
+        { text: '"ready" should be "prepared"', correct: false },
+      ],
+      explain: 'Rule: With "neither...nor" or "either...or," the verb agrees with the subject closest to it. Since "students" (plural) is closest, use "were."'
+    },
+    {
+      sentence: "The manager, along with his team members, are attending the conference tomorrow.",
+      topic: "Subject-Verb Agreement",
+      instruction: "Read the sentence carefully. It contains ONE error. Choose the answer that correctly identifies it.",
+      choices: [
+        { text: '"along with" should be "and"', correct: false },
+        { text: '"are" should be "is" — phrases like "along with," "together with," and "as well as" do not make the subject plural; the true subject is "the manager" (singular)', correct: true },
+        { text: '"attending" should be "attended"', correct: false },
+        { text: '"conference" should be "meeting"', correct: false },
+      ],
+      explain: 'Rule: "Along with his team members" is a parenthetical phrase, not part of the subject. The real subject is "The manager" (singular), so use "is."'
+    },
+    {
+      sentence: "She has been waiting for the bus since two hours.",
+      topic: "Preposition",
+      instruction: "Read the sentence carefully. It contains ONE error in the use of a preposition. Choose the answer that correctly identifies it.",
+      choices: [
+        { text: '"has been waiting" should be "was waiting"', correct: false },
+        { text: '"since" should be "for" — we use "for" with a period of time (two hours) and "since" with a point in time (2 o\'clock)', correct: true },
+        { text: '"bus" should be "buses"', correct: false },
+        { text: '"She" should be "Her"', correct: false },
+      ],
+      explain: 'Rule: Use "for" with durations: for two hours, for three days. Use "since" with points in time: since Monday, since 3 pm.'
+    },
+    {
+      sentence: "Each of the students have submitted their assignment on time.",
+      topic: "Subject-Verb Agreement",
+      instruction: "Read the sentence carefully. It contains ONE error. Choose the answer that correctly identifies it.",
+      choices: [
+        { text: '"their" should be "his or her"', correct: false },
+        { text: '"have" should be "has" — "each" is always singular and takes a singular verb, regardless of what follows', correct: true },
+        { text: '"submitted" should be "submitting"', correct: false },
+        { text: '"on time" should be "in time"', correct: false },
+      ],
+      explain: 'Rule: "Each" is always singular. Even when followed by "of the students," the verb must be singular: "has submitted."'
+    },
+    {
+      sentence: "The news about the floods are very disturbing for the villagers.",
+      topic: "Collective Noun",
+      instruction: "Read the sentence carefully. It contains ONE error in subject-verb agreement. Choose the answer that correctly identifies it.",
+      choices: [
+        { text: '"are" should be "is" — "news" looks plural but is actually an uncountable singular noun in English', correct: true },
+        { text: '"disturbing" should be "disturbed"', correct: false },
+        { text: '"about" should be "of"', correct: false },
+        { text: '"villagers" should be "village"', correct: false },
+      ],
+      explain: 'Rule: "News" is an uncountable noun and is always treated as singular in English, even though it ends in -s. Use "is," never "are."'
+    }
+  ]
+};
+
+// ══════════════════════════════════════════════════════════
+// FIND THE ERROR — LOGIC
+// ══════════════════════════════════════════════════════════
+function feStart() {
+  currentQ = 0; score = 0; answered = false;
+  feRenderQ();
+}
+
+function feRenderQ() {
+  const qs = feQuestions[currentLevel];
+  const q = qs[currentQ];
+  const total = qs.length;
+  document.getElementById('fe-progress-fill').style.width = (currentQ / total * 100) + '%';
+  document.getElementById('fe-progress-text').textContent = 'Question ' + (currentQ+1) + ' of ' + total;
+  document.getElementById('fe-level-label').textContent = (currentLevel === 'beginner' ? 'Beginner' : 'Intermediate') + ' · Grammar & Usage';
+  document.getElementById('fe-q-level').textContent = currentLevel === 'beginner' ? 'Beginner' : 'Intermediate';
+  document.getElementById('fe-q-topic').textContent = q.topic;
+  document.getElementById('fe-instruction').textContent = q.instruction;
+  document.getElementById('fe-sentence').textContent = q.sentence;
+  document.getElementById('fe-feedback').className = 'feedback-box';
+  document.getElementById('fe-feedback-main').textContent = '';
+  document.getElementById('fe-feedback-explain').textContent = '';
+  document.getElementById('fe-next-btn').className = 'next-btn';
+  answered = false;
+
+  const choicesEl = document.getElementById('fe-choices');
+  choicesEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  q.choices.forEach((c, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    btn.innerHTML = '<span class="choice-letter">' + letters[i] + '</span>' + c.text;
+    btn.onclick = () => feAnswer(btn, c.correct, q.explain);
+    choicesEl.appendChild(btn);
+  });
+}
+
+function feAnswer(btn, isCorrect, explain) {
+  if (answered) return;
+  answered = true;
+  if (isCorrect) score++;
+  document.querySelectorAll('#fe-choices .choice-btn').forEach(b => {
+    b.disabled = true;
+    const letter = b.querySelector('.choice-letter').textContent;
+  });
+  // Find and mark correct
+  document.querySelectorAll('#fe-choices .choice-btn').forEach((b, i) => {
+    const q = feQuestions[currentLevel][currentQ];
+    if (q.choices[i].correct) b.classList.add('correct');
+  });
+  if (!isCorrect) btn.classList.add('wrong');
+
+  const fb = document.getElementById('fe-feedback');
+  const fbMain = document.getElementById('fe-feedback-main');
+  const fbExplain = document.getElementById('fe-feedback-explain');
+  if (isCorrect) {
+    fb.className = 'feedback-box show correct';
+    fbMain.textContent = '✓ Correct! Well done!';
+  } else {
+    fb.className = 'feedback-box show wrong';
+    fbMain.textContent = '✗ Not quite. The highlighted answer above is correct.';
+  }
+  fbExplain.textContent = '📚 ' + explain;
+  document.getElementById('fe-next-btn').className = 'next-btn visible';
+}
+
+function feNext() {
+  currentQ++;
+  const total = feQuestions[currentLevel].length;
+  if (currentQ >= total) {
+    document.getElementById('fe-progress-fill').style.width = '100%';
+    showScore('Find the Error');
+  } else {
+    feRenderQ();
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// FIX THE ORDER — DATA
+// ══════════════════════════════════════════════════════════
+const foQuestions = {
+  beginner: [
+    { words: ['She', 'drinks', 'milk', 'every', 'morning'], answer: 'She drinks milk every morning', topic: 'Simple Present' },
+    { words: ['The', 'dog', 'ran', 'across', 'the', 'field'], answer: 'The dog ran across the field', topic: 'Simple Past' },
+    { words: ['My', 'sister', 'likes', 'to', 'read', 'books'], answer: 'My sister likes to read books', topic: 'Infinitive' },
+    { words: ['We', 'played', 'cricket', 'yesterday', 'afternoon'], answer: 'We played cricket yesterday afternoon', topic: 'Past Tense' },
+    { words: ['The', 'little', 'girl', 'sang', 'a', 'song'], answer: 'The little girl sang a song', topic: 'Past Tense' },
+  ],
+  intermediate: [
+    { words: ['Always', 'he', 'arrives', 'late', 'for', 'class'], answer: 'He always arrives late for class', topic: 'Adverb Position' },
+    { words: ['never', 'I', 'have', 'seen', 'such', 'a', 'beautiful', 'sunrise'], answer: 'I have never seen such a beautiful sunrise', topic: 'Perfect Tense' },
+    { words: ['The', 'book', 'that', 'she', 'borrowed', 'was', 'very', 'interesting'], answer: 'The book that she borrowed was very interesting', topic: 'Relative Clause' },
+    { words: ['Despite', 'the', 'rain', 'they', 'continued', 'their', 'journey'], answer: 'Despite the rain they continued their journey', topic: 'Concession' },
+    { words: ['Neither', 'Ram', 'nor', 'Shyam', 'was', 'present', 'in', 'class'], answer: 'Neither Ram nor Shyam was present in class', topic: 'Correlatives' },
+  ]
+};
+
+let foSelectedWords = [];
+let foCurrentWords = [];
+
+function foStart() {
+  currentQ = 0; score = 0;
+  foRenderQ();
+}
+
+function foRenderQ() {
+  const qs = foQuestions[currentLevel];
+  const q = qs[currentQ];
+  const total = qs.length;
+  foSelectedWords = [];
+  foCurrentWords = shuffle([...q.words]);
+
+  document.getElementById('fo-progress-fill').style.width = (currentQ / total * 100) + '%';
+  document.getElementById('fo-progress-text').textContent = 'Question ' + (currentQ+1) + ' of ' + total;
+  document.getElementById('fo-q-level').textContent = currentLevel === 'beginner' ? 'Beginner' : 'Intermediate';
+  document.getElementById('fo-q-topic').textContent = q.topic;
+  document.getElementById('fo-feedback').className = 'feedback-box';
+  document.getElementById('fo-next-btn').className = 'next-btn';
+  document.getElementById('fo-check-btn').disabled = false;
+  document.getElementById('fo-check-btn').style.opacity = '1';
+  foRenderBank();
+  foRenderAnswer();
+}
+
+function foRenderBank() {
+  const bank = document.getElementById('fo-word-bank');
+  bank.innerHTML = '';
+  foCurrentWords.forEach((w, i) => {
+    const chip = document.createElement('button');
+    chip.className = 'word-chip' + (foSelectedWords.includes(i) ? ' used' : '');
+    chip.textContent = w;
+    chip.onclick = () => foSelectWord(i);
+    bank.appendChild(chip);
+  });
+}
+
+function foRenderAnswer() {
+  const area = document.getElementById('fo-answer-area');
+  const ph = document.getElementById('fo-placeholder');
+  area.innerHTML = '';
+  if (foSelectedWords.length === 0) {
+    area.appendChild(Object.assign(document.createElement('span'), { className: 'answer-placeholder', id: 'fo-placeholder', textContent: 'Tap words below to start...' }));
+    return;
+  }
+  foSelectedWords.forEach((idx, pos) => {
+    const chip = document.createElement('span');
+    chip.className = 'answer-word';
+    chip.textContent = foCurrentWords[idx];
+    chip.onclick = () => foRemoveWord(pos);
+    area.appendChild(chip);
+  });
+}
+
+function foSelectWord(idx) {
+  if (foSelectedWords.includes(idx)) return;
+  foSelectedWords.push(idx);
+  foRenderBank();
+  foRenderAnswer();
+}
+
+function foRemoveWord(pos) {
+  foSelectedWords.splice(pos, 1);
+  foRenderBank();
+  foRenderAnswer();
+}
+
+function foClear() {
+  foSelectedWords = [];
+  foRenderBank();
+  foRenderAnswer();
+  document.getElementById('fo-feedback').className = 'feedback-box';
+}
+
+function foCheck() {
+  const q = foQuestions[currentLevel][currentQ];
+  const userAnswer = foSelectedWords.map(i => foCurrentWords[i]).join(' ');
+  const correct = userAnswer === q.answer;
+  if (correct) score++;
+
+  const fb = document.getElementById('fo-feedback');
+  const fbMain = document.getElementById('fo-feedback-main');
+  const fbExplain = document.getElementById('fo-feedback-explain');
+
+  if (correct) {
+    fb.className = 'feedback-box show correct';
+    fbMain.textContent = '✓ Perfect! That is the correct sentence!';
+    fbExplain.textContent = '📚 "' + q.answer + '"';
+  } else {
+    fb.className = 'feedback-box show wrong';
+    fbMain.textContent = '✗ Not quite right. The correct sentence is:';
+    fbExplain.textContent = '"' + q.answer + '"';
+  }
+  document.getElementById('fo-check-btn').disabled = true;
+  document.getElementById('fo-check-btn').style.opacity = '0.5';
+  document.getElementById('fo-next-btn').className = 'next-btn visible';
+}
+
+function foNext() {
+  currentQ++;
+  if (currentQ >= foQuestions[currentLevel].length) {
+    document.getElementById('fo-progress-fill').style.width = '100%';
+    showScore('Fix the Order');
+  } else {
+    foRenderQ();
+  }
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// ══════════════════════════════════════════════════════════
+// MAD LIBS — DATA
+// ══════════════════════════════════════════════════════════
+const madlibStories = [
+  {
+    title: "The Market Day",
+    fields: [
+      { label: "A person's name", hint: "Example: Sunita, Ravi, Meena", key: "name" },
+      { label: "An animal", hint: "Example: elephant, monkey, cow", key: "animal" },
+      { label: "A colour", hint: "Example: bright red, shiny gold, deep blue", key: "colour" },
+      { label: "A food", hint: "Example: mangoes, samosas, chapati", key: "food" },
+      { label: "An action word (verb)", hint: "Example: jumped, laughed, sang", key: "verb" },
+      { label: "A feeling", hint: "Example: excited, confused, amazed", key: "feeling" },
+    ],
+    template: (f) => `One sunny morning, <b>${f.name}</b> went to the village market. Near the vegetable stall, a <b>${f.colour}</b> <b>${f.animal}</b> suddenly appeared! Everyone at the market was very <b>${f.feeling}</b>. The <b>${f.animal}</b> looked at the pile of fresh <b>${f.food}</b> and <b>${f.verb}</b> loudly. <b>${f.name}</b> could not stop laughing! It was the most unusual market day anyone had ever seen.`
+  },
+  {
+    title: "The Lost Kite",
+    fields: [
+      { label: "A boy's or girl's name", hint: "Example: Arjun, Priya, Deepa", key: "name" },
+      { label: "A number", hint: "Example: seven, twelve, twenty-three", key: "number" },
+      { label: "An adjective (describing word)", hint: "Example: enormous, tiny, sparkling", key: "adj" },
+      { label: "A place", hint: "Example: the river, the old temple, the school roof", key: "place" },
+      { label: "Something you find in nature", hint: "Example: a mango tree, a cloud, a bird's nest", key: "nature" },
+    ],
+    template: (f) => `<b>${f.name}</b> had been flying a kite for <b>${f.number}</b> hours when the string suddenly broke. The <b>${f.adj}</b> kite flew high into the sky and landed right on top of <b>${f.place}</b>. <b>${f.name}</b> climbed <b>${f.number}</b> steps to reach it. Hidden behind the kite was a surprise — a beautiful <b>${f.nature}</b> that nobody had noticed before! <b>${f.name}</b> carefully carried both the kite and the treasure home.`
+  },
+  {
+    title: "A Strange Visitor",
+    fields: [
+      { label: "A name", hint: "Any name you like!", key: "name" },
+      { label: "An unusual object", hint: "Example: a golden umbrella, a silver pot, a flying bicycle", key: "object" },
+      { label: "A verb (action word)", hint: "Example: whispered, danced, floated", key: "verb1" },
+      { label: "Another verb", hint: "Example: disappeared, giggled, shone", key: "verb2" },
+      { label: "A sound", hint: "Example: a loud bang, a soft hum, a gentle ring", key: "sound" },
+    ],
+    template: (f) => `One quiet evening, <b>${f.name}</b> heard <b>${f.sound}</b> at the door. When the door opened, there stood a stranger holding <b>${f.object}</b>. Without saying a word, the stranger <b>${f.verb1}</b> in the middle of the room. Suddenly, <b>${f.object}</b> <b>${f.verb2}</b> and everything in the room turned a different colour! The stranger smiled, bowed, and walked away — leaving <b>${f.object}</b> behind as a gift for <b>${f.name}</b>.`
+  }
+];
+
+let mlCurrentIdx = 0;
+
+function mlStart() {
+  mlCurrentIdx = Math.floor(Math.random() * madlibStories.length);
+  mlRender();
+}
+
+function mlNext() {
+  mlCurrentIdx = (mlCurrentIdx + 1) % madlibStories.length;
+  mlRender();
+}
+
+function mlRender() {
+  const story = madlibStories[mlCurrentIdx];
+  const inputsEl = document.getElementById('madlib-inputs');
+  inputsEl.innerHTML = '<div style="padding:10px 0 4px; font-size:16px; font-weight:800; color:var(--navy);">📖 Story: ' + story.title + '</div>';
+  story.fields.forEach(f => {
+    const div = document.createElement('div');
+    div.className = 'madlib-input-group';
+    div.innerHTML = '<label class="madlib-label">Give me <span style="color:var(--blue)">' + f.label + '</span></label>' +
+      '<span class="madlib-hint">💡 ' + f.hint + '</span>' +
+      '<input class="madlib-input" type="text" id="ml-' + f.key + '" placeholder="Type here..." autocomplete="off">';
+    inputsEl.appendChild(div);
+  });
+  document.getElementById('madlib-input-screen').style.display = 'block';
+  document.getElementById('madlib-story-screen').style.display = 'none';
+}
+
+function mlReveal() {
+  const story = madlibStories[mlCurrentIdx];
+  const filled = {};
+  for (const f of story.fields) {
+    const val = document.getElementById('ml-' + f.key).value.trim();
+    filled[f.key] = val || ('_' + f.label + '_');
+  }
+  document.getElementById('madlib-story-text').innerHTML = story.template(filled);
+  document.getElementById('madlib-input-screen').style.display = 'none';
+  document.getElementById('madlib-story-screen').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+function mlReset() {
+  mlRender();
+}
+
+// ══════════════════════════════════════════════════════════
+// STORY STARTER — DATA
+// ══════════════════════════════════════════════════════════
+const ssStories = [
+  {
+    prompt: "Meena found an old, dusty box under her grandmother's bed. When she opened it, she gasped — inside was something she had never seen before.",
+    hints: "💡 Think about: What was inside the box? What did it look like? What did Meena do next? How did she feel?",
+    tips: "✓ Great things to check: Did you start each sentence with a capital letter? Did you end each sentence with a full stop? Did you describe what was in the box clearly?"
+  },
+  {
+    prompt: "It was the first day at a new school. Arjun stood at the gate and looked at all the children playing. He took a deep breath and walked in.",
+    hints: "💡 Think about: Who did Arjun meet first? What happened during his first class? Did he make a friend? How did the day end?",
+    tips: "✓ Great things to check: Did you use words like 'then,' 'next,' 'suddenly,' or 'finally' to connect your sentences? Did you describe how Arjun felt?"
+  },
+  {
+    prompt: "The old banyan tree at the centre of the village was said to be magical. One afternoon, Priya sat under it to rest — and heard something that changed everything.",
+    hints: "💡 Think about: What did Priya hear? Was it a voice, a sound, or a song? What happened next? Was it a good or scary surprise?",
+    tips: "✓ Great things to check: Did you use interesting adjectives (describing words) to make the story exciting? Did your story have a clear ending?"
+  },
+  {
+    prompt: "The rain had stopped. In the middle of the muddy road, Ravi spotted something glittering in the sunlight. He ran towards it.",
+    hints: "💡 Think about: What was the glittering object? Where did it come from? What did Ravi decide to do with it? Did anyone else see it?",
+    tips: "✓ Great things to check: Did you use past tense throughout (found, ran, saw)? Did you include at least one dialogue line — what did a character say?"
+  }
+];
+
+let ssCurrentIdx = 0;
+
+function ssStart() {
+  ssCurrentIdx = 0;
+  ssRenderStory();
+}
+
+function ssRenderStory() {
+  const s = ssStories[ssCurrentIdx];
+  const total = ssStories.length;
+  document.getElementById('ss-progress-fill').style.width = (ssCurrentIdx / total * 100) + '%';
+  document.getElementById('ss-progress-text').textContent = 'Story ' + (ssCurrentIdx+1) + ' of ' + total;
+  document.getElementById('ss-prompt').textContent = s.prompt;
+  document.getElementById('ss-hints').textContent = s.hints;
+  document.getElementById('ss-textarea').value = '';
+  document.getElementById('ss-word-count').textContent = '0 words';
+  document.getElementById('ss-feedback').className = 'feedback-box';
+  document.getElementById('ss-next-btn').className = 'next-btn';
+}
+
+function ssWordCount() {
+  const text = document.getElementById('ss-textarea').value.trim();
+  const count = text === '' ? 0 : text.split(/\s+/).length;
+  document.getElementById('ss-word-count').textContent = count + ' word' + (count !== 1 ? 's' : '');
+}
+
+function ssSubmit() {
+  const text = document.getElementById('ss-textarea').value.trim();
+  const wordCount = text === '' ? 0 : text.split(/\s+/).length;
+  const s = ssStories[ssCurrentIdx];
+  const fb = document.getElementById('ss-feedback');
+  const fbMain = document.getElementById('ss-feedback-main');
+
+  if (wordCount < 10) {
+    fb.className = 'feedback-box show wrong';
+    fbMain.innerHTML = '✏️ Please write a little more — at least 3–5 sentences to continue the story well!';
+    return;
+  }
+
+  fb.className = 'feedback-box show correct';
+  fbMain.innerHTML = '✓ Well done for writing your story!<br><br>' + s.tips + '<br><br>📖 Read your story out loud — does it flow well? Does it make sense?';
+  document.getElementById('ss-next-btn').className = 'next-btn visible';
+}
+
+function ssNext() {
+  ssCurrentIdx++;
+  if (ssCurrentIdx >= ssStories.length) {
+    currentQ = ssStories.length;
+    score = ssStories.length; // All stories completed = full score
+    showScore('Story Starter');
+  } else {
+    ssRenderStory();
+  }
+}
+</script>
+</body>
+</html>
