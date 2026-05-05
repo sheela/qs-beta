@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quillster — Write with Confidence</title>
+<title>Quillster — Learn Written English</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -600,6 +600,47 @@
   }
   .coming-soon-screen p { font-size: 15px; color: var(--gray); margin-bottom: 24px; line-height: 1.6; }
 
+  /* ── INTERMEDIATE PREVIEW ── */
+  .int-topic-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 2px solid transparent;
+    transition: border-color 0.15s;
+  }
+  .int-topic-card:hover { border-color: var(--blue); }
+  .int-topic-icon { font-size: 26px; flex-shrink: 0; margin-top: 2px; }
+  .int-topic-body { flex: 1; }
+  .int-topic-name { font-size: 14px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+  .int-topic-desc { font-size: 12px; color: var(--gray); line-height: 1.5; margin-bottom: 7px; }
+  .int-topic-example {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    background: var(--sky);
+    border-radius: var(--radius-sm);
+    padding: 7px 10px;
+    margin-top: 4px;
+    font-style: italic;
+  }
+  .int-topic-error {
+    background: var(--red-light);
+    color: #7f1d1d;
+  }
+  .int-highlight {
+    background: var(--gold-light);
+    color: var(--gold-dark);
+    border-radius: 3px;
+    padding: 0 4px;
+    font-weight: 800;
+    font-style: normal;
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 400px) {
     .cards-grid { grid-template-columns: 1fr 1fr; }
@@ -623,7 +664,7 @@
     <p>Fun exercises to help you write English with confidence — one step at a time.</p>
     <div class="level-tabs">
       <button class="level-tab active" onclick="setLevel('beginner', this)">Beginner</button>
-      <button class="level-tab" onclick="setLevel('intermediate', this)">Intermediate</button>
+      <button class="level-tab" onclick="showIntermediatePreview()">Intermediate</button>
     </div>
   </div>
 
@@ -643,8 +684,8 @@
     </div>
     <div class="ex-card" onclick="startExercise('madlibs')">
       <div class="ex-icon">🎭</div>
-      <div class="ex-name">Mad Libs</div>
-      <div class="ex-desc">Fill blanks with your own funny words</div>
+      <div class="ex-name">Silly Scribbles</div>
+      <div class="ex-desc">Fill blanks with your own funny words — make a silly story!</div>
       <div class="ex-badge">Free</div>
     </div>
     <div class="ex-card" onclick="startExercise('story')">
@@ -739,7 +780,7 @@
   <div class="ex-header">
     <button class="back-btn" onclick="goHome()">← Back</button>
     <div class="ex-header-info">
-      <div class="ex-header-title">🎭 Mad Libs</div>
+      <div class="ex-header-title">🎭 Silly Scribbles</div>
       <div class="ex-header-sub">Fill the blanks — then read your silly story!</div>
     </div>
   </div>
@@ -808,7 +849,87 @@
   </div>
 </div>
 
-<!-- ════════════════════════════════ SCORE ════════════════════════════════ -->
+<!-- ════════════════════════════════ INTERMEDIATE PREVIEW ════════════════════════════════ -->
+<div id="screen-intermediate" class="screen">
+  <div class="ex-header">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <div class="ex-header-info">
+      <div class="ex-header-title">⭐ Intermediate Level</div>
+      <div class="ex-header-sub">Coming soon — here's what's being built</div>
+    </div>
+  </div>
+  <div style="padding: 20px 16px 0;">
+    <div style="background: var(--navy); border-radius: var(--radius); padding: 20px; text-align:center; margin-bottom: 20px;">
+      <div style="font-size: 36px; margin-bottom: 10px;">🚧</div>
+      <div style="font-family: 'Baloo 2', cursive; font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 8px;">Intermediate Level is Coming!</div>
+      <div style="font-size: 14px; color: #b3cde8; line-height: 1.6;">Master the finer rules of written English — the skills that make the real difference in school exams and beyond.</div>
+    </div>
+
+    <div class="section-label" style="padding: 0 0 10px;">Topics being built for you</div>
+
+    <div class="int-topic-card">
+      <div class="int-topic-icon">🔗</div>
+      <div class="int-topic-body">
+        <div class="int-topic-name">FANBOYS — Coordinating Conjunctions</div>
+        <div class="int-topic-desc">For · And · Nor · But · Or · Yet · So — learn when and how to join two ideas correctly</div>
+        <div class="int-topic-example">"She studied hard, <span class="int-highlight">but</span> she did not pass the exam."</div>
+      </div>
+    </div>
+
+    <div class="int-topic-card">
+      <div class="int-topic-icon">✂️</div>
+      <div class="int-topic-body">
+        <div class="int-topic-name">Comma Splice</div>
+        <div class="int-topic-desc">Learn why you cannot join two complete sentences with just a comma — and how to fix it</div>
+        <div class="int-topic-example int-topic-error">"It was raining, we stayed inside." ✗</div>
+        <div class="int-topic-example">"It was raining, <span class="int-highlight">so</span> we stayed inside." ✓</div>
+      </div>
+    </div>
+
+    <div class="int-topic-card">
+      <div class="int-topic-icon">⚖️</div>
+      <div class="int-topic-body">
+        <div class="int-topic-name">Tricky Subject-Verb Agreement</div>
+        <div class="int-topic-desc">Neither/nor, either/or, each/every, collective nouns — the rules that confuse even good writers</div>
+        <div class="int-topic-example">"Neither the teacher <span class="int-highlight">nor</span> the students <span class="int-highlight">were</span> ready."</div>
+      </div>
+    </div>
+
+    <div class="int-topic-card">
+      <div class="int-topic-icon">🔄</div>
+      <div class="int-topic-body">
+        <div class="int-topic-name">Since vs For · In vs At vs On</div>
+        <div class="int-topic-desc">The prepositions that every English learner finds confusing — with clear rules and examples</div>
+        <div class="int-topic-example">"She has been waiting <span class="int-highlight">for</span> two hours / <span class="int-highlight">since</span> 3 o'clock."</div>
+      </div>
+    </div>
+
+    <div class="int-topic-card">
+      <div class="int-topic-icon">🎯</div>
+      <div class="int-topic-body">
+        <div class="int-topic-name">Confusable Word Pairs</div>
+        <div class="int-topic-desc">affect/effect · then/than · its/it's · their/there/they're — choose the right word every time</div>
+        <div class="int-topic-example">"The weather will <span class="int-highlight">affect</span> the match." vs "The <span class="int-highlight">effect</span> was surprising."</div>
+      </div>
+    </div>
+
+    <div class="int-topic-card">
+      <div class="int-topic-icon">📝</div>
+      <div class="int-topic-body">
+        <div class="int-topic-name">Run-On Sentences</div>
+        <div class="int-topic-desc">Spot sentences that go on too long without proper punctuation — and learn how to break them up</div>
+        <div class="int-topic-example">"Ramu went to the market he bought vegetables he came home he cooked dinner." ✗</div>
+      </div>
+    </div>
+
+    <div style="background: var(--gold-light); border-radius: var(--radius); padding: 16px; margin: 8px 0 24px; border-left: 4px solid var(--gold);">
+      <div style="font-size: 14px; font-weight: 800; color: var(--gold-dark); margin-bottom: 6px;">💡 Meanwhile — start with Beginner!</div>
+      <div style="font-size: 13px; color: var(--gold-dark); line-height: 1.6;">Master the Beginner exercises first. A strong foundation makes Intermediate much easier. Every expert was once a beginner!</div>
+    </div>
+
+    <button class="btn-primary" style="width:100%; margin-bottom: 24px;" onclick="goHome()">← Back to Exercises</button>
+  </div>
+</div>
 <div id="screen-score" class="screen">
   <div class="score-screen">
     <div class="score-emoji" id="score-emoji">🌟</div>
@@ -847,6 +968,10 @@ function setLevel(level, btn) {
   currentLevel = level;
   document.querySelectorAll('.level-tab').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
+}
+
+function showIntermediatePreview() {
+  showScreen('screen-intermediate');
 }
 
 function startExercise(type) {
