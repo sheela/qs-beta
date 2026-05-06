@@ -23,6 +23,10 @@
     --text: #1e293b;
     --radius: 14px;
     --radius-sm: 8px;
+
+    --beginner-gradient: linear-gradient(160deg, #1a3a5c 0%, #1e4d8c 100%);
+    --intermediate-gradient: linear-gradient(160deg, #2b5e3b 0%, #3a7c4a 100%);
+    --advanced-gradient: linear-gradient(160deg, #6b2e5f 0%, #8b3e7a 100%);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,7 +38,6 @@
     min-height: 100vh;
   }
 
-  /* ── HEADER ── */
   header {
     background: var(--navy);
     padding: 14px 20px;
@@ -66,16 +69,14 @@
     letter-spacing: 0.5px;
   }
 
-  /* ── SCREENS ── */
   .screen { display: none; }
   .screen.active { display: block; }
 
-  /* ── HOME SCREEN ── */
   .hero {
-    background: linear-gradient(160deg, var(--navy) 0%, #1e4d8c 100%);
     padding: 36px 20px 28px;
     text-align: center;
     color: #fff;
+    transition: background 0.3s;
   }
   .hero h1 {
     font-family: 'Baloo 2', cursive;
@@ -86,7 +87,6 @@
   }
   .hero p {
     font-size: 15px;
-    color: #b3cde8;
     max-width: 340px;
     margin: 0 auto 20px;
     line-height: 1.6;
@@ -115,7 +115,6 @@
   }
   .level-tab:hover:not(.active) { border-color: rgba(255,255,255,0.4); }
 
-  /* ── EXERCISE CARDS ── */
   .section-label {
     font-size: 12px;
     font-weight: 800;
@@ -141,9 +140,8 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   }
   .ex-card:hover {
-    border-color: var(--blue);
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(37,99,168,0.14);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
   }
   .ex-icon { font-size: 34px; margin-bottom: 10px; }
   .ex-name { font-size: 14px; font-weight: 800; color: var(--navy); margin-bottom: 5px; }
@@ -161,13 +159,24 @@
     background: var(--gold-light);
     color: var(--gold-dark);
   }
-  .coming-soon-tag {
-    font-size: 10px;
-    color: var(--gray);
-    font-weight: 700;
-  }
 
-  /* ── EXERCISE SCREEN ── */
+  .topic-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+    gap: 12px;
+    padding: 0 16px 24px;
+  }
+  .topic-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 18px 14px;
+    text-align: center;
+    border: 2px solid #e2e8f0;
+  }
+  .topic-icon { font-size: 32px; margin-bottom: 8px; }
+  .topic-name { font-size: 14px; font-weight: 800; margin-bottom: 5px; }
+  .topic-desc { font-size: 11px; color: var(--gray); line-height: 1.4; }
+
   .ex-header {
     background: var(--navy);
     color: #fff;
@@ -199,7 +208,7 @@
     background: rgba(255,255,255,0.15);
     border-radius: 20px;
     height: 7px;
-    margin: 0 20px 0;
+    margin: 10px 20px 0;
     overflow: hidden;
   }
   .progress-bar-fill {
@@ -259,12 +268,10 @@
     font-weight: 600;
     color: var(--navy);
   }
-  .q-sentence .err-highlight {
-    background: #fde8e8;
-    color: var(--red);
-    border-radius: 4px;
-    padding: 0 3px;
-    text-decoration: underline wavy var(--red);
+  .runon-sentence {
+    font-size: 16px;
+    background: #fff3e0;
+    border-left: 4px solid var(--gold);
   }
 
   .choices { display: flex; flex-direction: column; gap: 10px; }
@@ -287,7 +294,6 @@
   .choice-btn:hover:not(:disabled) {
     border-color: var(--blue);
     background: var(--sky);
-    color: var(--navy);
   }
   .choice-btn:disabled { cursor: default; }
   .choice-btn.correct {
@@ -310,8 +316,6 @@
     flex-shrink: 0;
     color: var(--gray);
   }
-  .choice-btn.correct .choice-letter { background: var(--green); color: #fff; }
-  .choice-btn.wrong .choice-letter { background: var(--red); color: #fff; }
 
   .feedback-box {
     margin: 14px 0 0;
@@ -345,13 +349,10 @@
     font-weight: 800;
     cursor: pointer;
     font-family: 'Nunito', sans-serif;
-    transition: background 0.15s;
     display: none;
   }
-  .next-btn:hover { background: var(--navy); }
   .next-btn.visible { display: block; }
 
-  /* ── SCORE SCREEN ── */
   .score-screen {
     text-align: center;
     padding: 40px 24px;
@@ -384,9 +385,7 @@
     font-weight: 800;
     cursor: pointer;
     font-family: 'Nunito', sans-serif;
-    transition: background 0.15s;
   }
-  .btn-primary:hover { background: var(--navy); }
   .btn-secondary {
     background: var(--white);
     color: var(--navy);
@@ -396,122 +395,9 @@
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
-    font-family: 'Nunito', sans-serif;
-    transition: all 0.15s;
-  }
-  .btn-secondary:hover { background: var(--sky); }
-
-  /* ── MAD LIBS ── */
-  .madlib-setup { padding: 0 16px 20px; }
-  .madlib-input-group { margin-bottom: 14px; }
-  .madlib-label {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 6px;
-    display: block;
-  }
-  .madlib-hint {
-    font-size: 11px;
-    color: var(--gray);
-    margin-bottom: 6px;
-    display: block;
-  }
-  .madlib-input {
-    width: 100%;
-    border: 2px solid #dde6f0;
-    border-radius: var(--radius-sm);
-    padding: 12px 14px;
-    font-size: 16px;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-    color: var(--navy);
-    outline: none;
-    transition: border-color 0.15s;
-  }
-  .madlib-input:focus { border-color: var(--blue); background: var(--sky); }
-  .madlib-story {
-    background: var(--sky);
-    border-radius: var(--radius);
-    padding: 20px;
-    font-size: 16px;
-    line-height: 1.9;
-    color: var(--navy);
-    font-weight: 600;
-    margin: 16px;
-  }
-  .madlib-fill {
-    background: var(--gold-light);
-    color: var(--gold-dark);
-    border-radius: 4px;
-    padding: 1px 6px;
-    font-weight: 800;
-    font-style: italic;
   }
 
-  /* ── STORY STARTER ── */
-  .story-prompt-card {
-    background: var(--sky);
-    border-radius: var(--radius);
-    margin: 16px;
-    padding: 18px;
-    border-left: 5px solid var(--blue);
-  }
-  .story-prompt-label {
-    font-size: 11px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--blue);
-    margin-bottom: 8px;
-  }
-  .story-prompt-text {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--navy);
-    line-height: 1.7;
-  }
-  .story-hints {
-    margin: 0 16px 12px;
-    padding: 12px 16px;
-    background: var(--gold-light);
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    color: var(--gold-dark);
-    font-weight: 700;
-  }
-  .story-textarea {
-    width: calc(100% - 32px);
-    margin: 0 16px;
-    border: 2px solid #dde6f0;
-    border-radius: var(--radius);
-    padding: 14px;
-    font-size: 15px;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 600;
-    color: var(--navy);
-    min-height: 160px;
-    resize: vertical;
-    outline: none;
-    transition: border-color 0.15s;
-    display: block;
-  }
-  .story-textarea:focus { border-color: var(--blue); background: var(--sky); }
-  .word-count {
-    text-align: right;
-    font-size: 12px;
-    color: var(--gray);
-    padding: 6px 16px;
-    font-weight: 600;
-  }
-
-  /* ── FIX THE ORDER ── */
-  .word-bank {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 4px 0 16px;
-  }
+  .word-bank { display: flex; flex-wrap: wrap; gap: 10px; padding: 4px 0 16px; }
   .word-chip {
     background: var(--white);
     border: 2.5px solid #dde6f0;
@@ -522,10 +408,7 @@
     cursor: pointer;
     font-family: 'Nunito', sans-serif;
     color: var(--navy);
-    transition: all 0.15s;
-    user-select: none;
   }
-  .word-chip:hover:not(.used) { border-color: var(--blue); background: var(--sky); }
   .word-chip.used { opacity: 0.3; cursor: default; }
   .answer-area {
     min-height: 56px;
@@ -547,14 +430,8 @@
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
-    transition: background 0.12s;
   }
   .answer-word:hover { background: var(--red); }
-  .answer-placeholder {
-    font-size: 14px;
-    color: #93b4d0;
-    font-weight: 600;
-  }
   .clear-btn {
     background: none;
     border: 2px solid #dde6f0;
@@ -562,12 +439,9 @@
     padding: 8px 14px;
     font-size: 13px;
     font-weight: 700;
-    color: var(--gray);
     cursor: pointer;
-    font-family: 'Nunito', sans-serif;
     margin-bottom: 10px;
   }
-  .clear-btn:hover { border-color: var(--red); color: var(--red); }
   .check-btn {
     display: block;
     width: 100%;
@@ -579,956 +453,299 @@
     font-size: 17px;
     font-weight: 800;
     cursor: pointer;
-    font-family: 'Nunito', sans-serif;
-    transition: background 0.15s;
     margin-bottom: 12px;
   }
-  .check-btn:hover { background: #e08c00; }
 
-  /* ── COMING SOON SCREEN ── */
-  .coming-soon-screen {
-    text-align: center;
-    padding: 50px 24px;
-  }
-  .coming-soon-screen .icon { font-size: 56px; margin-bottom: 16px; }
-  .coming-soon-screen h2 {
-    font-family: 'Baloo 2', cursive;
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--navy);
-    margin-bottom: 8px;
-  }
-  .coming-soon-screen p { font-size: 15px; color: var(--gray); margin-bottom: 24px; line-height: 1.6; }
-
-  /* ── INTERMEDIATE PREVIEW ── */
-  .int-topic-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 16px;
-    margin-bottom: 12px;
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    border: 2px solid transparent;
-    transition: border-color 0.15s;
-  }
-  .int-topic-card:hover { border-color: var(--blue); }
-  .int-topic-icon { font-size: 26px; flex-shrink: 0; margin-top: 2px; }
-  .int-topic-body { flex: 1; }
-  .int-topic-name { font-size: 14px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
-  .int-topic-desc { font-size: 12px; color: var(--gray); line-height: 1.5; margin-bottom: 7px; }
-  .int-topic-example {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--navy);
-    background: var(--sky);
+  .madlib-setup { padding: 0 16px 20px; }
+  .madlib-input-group { margin-bottom: 14px; }
+  .madlib-label { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 6px; display: block; }
+  .madlib-hint { font-size: 11px; color: var(--gray); margin-bottom: 6px; display: block; }
+  .madlib-input {
+    width: 100%;
+    border: 2px solid #dde6f0;
     border-radius: var(--radius-sm);
-    padding: 7px 10px;
-    margin-top: 4px;
-    font-style: italic;
+    padding: 12px 14px;
+    font-size: 16px;
+    font-family: 'Nunito', sans-serif;
   }
-  .int-topic-error {
-    background: var(--red-light);
-    color: #7f1d1d;
-  }
-  .int-highlight {
-    background: var(--gold-light);
-    color: var(--gold-dark);
-    border-radius: 3px;
-    padding: 0 4px;
-    font-weight: 800;
-    font-style: normal;
+  .madlib-story {
+    background: var(--sky);
+    border-radius: var(--radius);
+    padding: 20px;
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--navy);
+    font-weight: 600;
+    margin: 16px;
   }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 400px) {
-    .cards-grid { grid-template-columns: 1fr 1fr; }
-    .hero h1 { font-size: 24px; }
+  .story-prompt-card {
+    background: var(--sky);
+    border-radius: var(--radius);
+    margin: 16px;
+    padding: 18px;
+    border-left: 5px solid var(--blue);
   }
+  .story-prompt-text { font-size: 16px; font-weight: 700; color: var(--navy); line-height: 1.7; }
+  .story-hints {
+    margin: 0 16px 12px;
+    padding: 12px 16px;
+    background: var(--gold-light);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    color: var(--gold-dark);
+    font-weight: 700;
+  }
+  .story-textarea {
+    width: calc(100% - 32px);
+    margin: 0 16px;
+    border: 2px solid #dde6f0;
+    border-radius: var(--radius);
+    padding: 14px;
+    font-size: 15px;
+    font-family: 'Nunito', sans-serif;
+    min-height: 160px;
+    resize: vertical;
+    display: block;
+  }
+  .word-count {
+    text-align: right;
+    font-size: 12px;
+    color: var(--gray);
+    padding: 6px 16px;
+    font-weight: 600;
+  }
+  .coming-soon-screen { text-align: center; padding: 50px 24px; }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">
-    <span class="logo-wing">🪶</span> Quillster
-  </div>
+  <div class="logo"><span class="logo-wing">🪶</span> Quillster</div>
   <span class="free-badge">FREE</span>
 </header>
 
-<!-- ════════════════════════════════ HOME ════════════════════════════════ -->
+<!-- HOME SCREEN -->
 <div id="screen-home" class="screen active">
-  <div class="hero">
+  <div class="hero" id="hero-bg" style="background: var(--beginner-gradient);">
     <h1>Write Better.<br>Dream Bigger.</h1>
     <p>Fun exercises to help you write English with confidence — one step at a time.</p>
     <div class="level-tabs">
       <button class="level-tab active" onclick="setLevel('beginner', this)">Beginner</button>
-      <button class="level-tab" onclick="showIntermediatePreview()">Intermediate</button>
+      <button class="level-tab" onclick="setLevel('intermediate', this)">Intermediate</button>
+      <button class="level-tab" onclick="setLevel('advanced', this)">Advanced</button>
     </div>
   </div>
-
-  <div class="section-label">Choose Your Practice</div>
-  <div class="cards-grid">
-    <div class="ex-card" onclick="startExercise('find-error')">
-      <div class="ex-icon">🔍</div>
-      <div class="ex-name">Find the Error</div>
-      <div class="ex-desc">Spot the one mistake hiding in the sentence</div>
-      <div class="ex-badge">Free</div>
-    </div>
-    <div class="ex-card" onclick="startExercise('fix-order')">
-      <div class="ex-icon">🔀</div>
-      <div class="ex-name">Fix the Order</div>
-      <div class="ex-desc">Tap words to build the correct sentence</div>
-      <div class="ex-badge">Free</div>
-    </div>
-    <div class="ex-card" onclick="startExercise('madlibs')">
-      <div class="ex-icon">🎭</div>
-      <div class="ex-name">Silly Scribbles</div>
-      <div class="ex-desc">Fill blanks with your own funny words — make a silly story!</div>
-      <div class="ex-badge">Free</div>
-    </div>
-    <div class="ex-card" onclick="startExercise('story')">
-      <div class="ex-icon">📖</div>
-      <div class="ex-name">Story Starter</div>
-      <div class="ex-desc">Finish a story — use your imagination!</div>
-      <div class="ex-badge">Free</div>
-    </div>
-    <div class="ex-card" onclick="startExercise('picture')">
-      <div class="ex-icon">🖼️</div>
-      <div class="ex-name">Picture Write</div>
-      <div class="ex-desc">Write 3 sentences about what you see</div>
-      <div class="ex-badge locked">Coming Soon</div>
-    </div>
-    <div class="ex-card" onclick="startExercise('diary')">
-      <div class="ex-icon">📔</div>
-      <div class="ex-name">Character Diary</div>
-      <div class="ex-desc">Write a diary entry as a fun character</div>
-      <div class="ex-badge locked">Coming Soon</div>
-    </div>
-  </div>
+  <div id="dynamic-cards-container"></div>
 </div>
 
-<!-- ════════════════════════════════ FIND THE ERROR ════════════════════════════════ -->
-<div id="screen-find-error" class="screen">
-  <div class="ex-header">
-    <button class="back-btn" onclick="goHome()">← Back</button>
-    <div class="ex-header-info">
-      <div class="ex-header-title">🔍 Find the Error</div>
-      <div class="ex-header-sub" id="fe-level-label">Beginner · Punctuation & Grammar</div>
-    </div>
-  </div>
-  <div class="progress-bar-wrap" style="margin-top:10px;">
-    <div class="progress-bar-fill" id="fe-progress-fill" style="width:0%"></div>
-  </div>
-  <div class="progress-text" id="fe-progress-text">Question 1 of 5</div>
+<!-- BEGINNER SCREENS (fully restored) -->
+<div id="screen-find-error-beginner" class="screen"><div class="ex-header"><button class="back-btn" onclick="goHome()">← Back</button><div class="ex-header-info"><div class="ex-header-title">🔍 Find the Error · Beginner</div><div class="ex-header-sub">Punctuation · Articles · Spelling</div></div></div><div class="progress-bar-wrap"><div class="progress-bar-fill" id="fe-begin-progress-fill" style="width:0%"></div></div><div class="progress-text" id="fe-begin-progress-text">Question 1 of 5</div><div class="question-card"><div class="q-meta"><span class="q-tag level">Beginner</span><span class="q-tag topic" id="fe-begin-q-topic"></span></div><div class="q-instruction">Read the sentence carefully. Choose the answer that correctly identifies the ONE error.</div><div class="q-sentence" id="fe-begin-sentence"></div><div class="choices" id="fe-begin-choices"></div><div class="feedback-box" id="fe-begin-feedback"><div id="fe-begin-feedback-main"></div><div class="feedback-explain" id="fe-begin-feedback-explain"></div></div></div><button class="next-btn" id="fe-begin-next-btn" onclick="feBeginNext()">Next Question →</button></div>
 
+<div id="screen-fix-order" class="screen"><div class="ex-header"><button class="back-btn" onclick="goHome()">← Back</button><div class="ex-header-info"><div class="ex-header-title">🔀 Fix the Order</div><div class="ex-header-sub">Tap words in the right order</div></div></div><div class="progress-bar-wrap"><div class="progress-bar-fill" id="fo-progress-fill" style="width:0%"></div></div><div class="progress-text" id="fo-progress-text">Question 1 of 5</div><div class="question-card"><div class="q-meta"><span class="q-tag level">Beginner</span><span class="q-tag topic">Word Order</span></div><div class="q-instruction">Tap the words below in the correct order to build the sentence.</div><div class="answer-area" id="fo-answer-area"><span class="answer-placeholder">Tap words below to start...</span></div><button class="clear-btn" onclick="foClear()">✕ Clear all</button><div class="word-bank" id="fo-word-bank"></div><button class="check-btn" id="fo-check-btn" onclick="foCheck()">✓ Check My Answer</button><div class="feedback-box" id="fo-feedback"><div id="fo-feedback-main"></div><div class="feedback-explain" id="fo-feedback-explain"></div></div></div><button class="next-btn" id="fo-next-btn" onclick="foNext()">Next Question →</button></div>
+
+<div id="screen-madlibs" class="screen"><div class="ex-header"><button class="back-btn" onclick="goHome()">← Back</button><div class="ex-header-info"><div class="ex-header-title">🎭 Silly Scribbles</div><div class="ex-header-sub">Fill the blanks — then read your silly story!</div></div></div><div id="madlib-input-screen"><div style="padding:14px 16px 0; font-size:14px; font-weight:700;">Enter your words first!</div><div class="madlib-setup" id="madlib-inputs"></div><div style="padding: 0 16px 20px;"><button class="btn-primary" style="width:100%;" onclick="mlReveal()">Reveal My Story! 🎉</button></div></div><div id="madlib-story-screen" style="display:none;"><div class="madlib-story" id="madlib-story-text"></div><div style="padding: 0 16px 20px; display:flex; flex-direction:column; gap:10px;"><button class="btn-primary" onclick="mlReset()">Try Again 🔄</button><button class="btn-secondary" onclick="mlNext()">Different Story →</button></div></div></div>
+
+<div id="screen-story" class="screen"><div class="ex-header"><button class="back-btn" onclick="goHome()">← Back</button><div class="ex-header-info"><div class="ex-header-title">📖 Story Starter</div><div class="ex-header-sub">Continue the story in your own words</div></div></div><div class="progress-bar-wrap"><div class="progress-bar-fill" id="ss-progress-fill" style="width:0%"></div></div><div class="progress-text" id="ss-progress-text">Story 1 of 4</div><div class="story-prompt-card"><div class="story-prompt-text" id="ss-prompt"></div></div><div class="story-hints" id="ss-hints"></div><div class="q-instruction" style="margin:0 16px 10px;">Write at least 3–5 sentences to continue the story.</div><textarea class="story-textarea" id="ss-textarea" placeholder="Start writing here..." oninput="ssWordCount()"></textarea><div class="word-count" id="ss-word-count">0 words</div><div style="padding: 0 16px 8px;"><button class="check-btn" onclick="ssSubmit()">✓ I'm Done — See Tips</button><div class="feedback-box" id="ss-feedback"><div id="ss-feedback-main"></div></div></div><button class="next-btn" id="ss-next-btn" onclick="ssNext()">Next Story →</button></div>
+
+<!-- INTERMEDIATE: Shrink It (rewrite run-on sentences with multiple choice) -->
+<div id="screen-shrink-it" class="screen">
+  <div class="ex-header"><button class="back-btn" onclick="goHome()">← Back</button><div class="ex-header-info"><div class="ex-header-title">📝 Shrink It</div><div class="ex-header-sub">Rewrite the rambling sentence — choose the clearest, correct version</div></div></div>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="shrink-progress-fill" style="width:0%"></div></div>
+  <div class="progress-text" id="shrink-progress-text">Exercise 1 of 2</div>
   <div class="question-card">
-    <div class="q-meta">
-      <span class="q-tag level" id="fe-q-level">Beginner</span>
-      <span class="q-tag topic" id="fe-q-topic">Punctuation</span>
-    </div>
-    <div class="q-instruction" id="fe-instruction">Read the sentence carefully. Choose the answer that correctly identifies the ONE error in the sentence.</div>
-    <div class="q-sentence" id="fe-sentence"></div>
-    <div class="choices" id="fe-choices"></div>
-    <div class="feedback-box" id="fe-feedback">
-      <div id="fe-feedback-main"></div>
-      <div class="feedback-explain" id="fe-feedback-explain"></div>
-    </div>
+    <div class="q-meta"><span class="q-tag level">Intermediate</span><span class="q-tag topic">Concise Rewriting</span></div>
+    <div class="q-instruction">This sentence is too long and messy. Choose the option that best restates the meaning clearly and correctly.</div>
+    <div class="q-sentence runon-sentence" id="shrink-sentence"></div>
+    <div class="choices" id="shrink-choices"></div>
+    <div class="feedback-box" id="shrink-feedback"><div id="shrink-feedback-main"></div><div class="feedback-explain" id="shrink-feedback-explain"></div></div>
   </div>
-  <button class="next-btn" id="fe-next-btn" onclick="feNext()">Next Question →</button>
+  <button class="next-btn" id="shrink-next-btn" onclick="shrinkNext()">Next Exercise →</button>
 </div>
 
-<!-- ════════════════════════════════ FIX THE ORDER ════════════════════════════════ -->
-<div id="screen-fix-order" class="screen">
-  <div class="ex-header">
-    <button class="back-btn" onclick="goHome()">← Back</button>
-    <div class="ex-header-info">
-      <div class="ex-header-title">🔀 Fix the Order</div>
-      <div class="ex-header-sub">Tap words in the right order to form a correct sentence</div>
-    </div>
-  </div>
-  <div class="progress-bar-wrap" style="margin-top:10px;">
-    <div class="progress-bar-fill" id="fo-progress-fill" style="width:0%"></div>
-  </div>
-  <div class="progress-text" id="fo-progress-text">Question 1 of 5</div>
-
-  <div class="question-card">
-    <div class="q-meta">
-      <span class="q-tag level" id="fo-q-level">Beginner</span>
-      <span class="q-tag topic" id="fo-q-topic">Word Order</span>
-    </div>
-    <div class="q-instruction">Tap the words below in the correct order to build the sentence. Tap a word in your answer to remove it.</div>
-    <div style="font-size:13px;color:var(--gray);margin-bottom:8px;font-weight:600;">Your sentence:</div>
-    <div class="answer-area" id="fo-answer-area">
-      <span class="answer-placeholder" id="fo-placeholder">Tap words below to start...</span>
-    </div>
-    <button class="clear-btn" onclick="foClear()">✕ Clear all</button>
-    <div style="font-size:13px;color:var(--gray);margin-bottom:8px;font-weight:600;">Word bank:</div>
-    <div class="word-bank" id="fo-word-bank"></div>
-    <button class="check-btn" id="fo-check-btn" onclick="foCheck()">✓ Check My Answer</button>
-    <div class="feedback-box" id="fo-feedback">
-      <div id="fo-feedback-main"></div>
-      <div class="feedback-explain" id="fo-feedback-explain"></div>
-    </div>
-  </div>
-  <button class="next-btn" id="fo-next-btn" onclick="foNext()">Next Question →</button>
-</div>
-
-<!-- ════════════════════════════════ MAD LIBS ════════════════════════════════ -->
-<div id="screen-madlibs" class="screen">
-  <div class="ex-header">
-    <button class="back-btn" onclick="goHome()">← Back</button>
-    <div class="ex-header-info">
-      <div class="ex-header-title">🎭 Silly Scribbles</div>
-      <div class="ex-header-sub">Fill the blanks — then read your silly story!</div>
-    </div>
-  </div>
-  <div id="madlib-input-screen">
-    <div style="padding:14px 16px 0; font-size:14px; font-weight:700; color:var(--navy);">
-      Enter your words first — don't peek at the story yet! 😄
-    </div>
-    <div class="madlib-setup" id="madlib-inputs" style="padding-top:10px;"></div>
-    <div style="padding: 0 16px 20px;">
-      <button class="btn-primary" style="width:100%; font-size:17px;" onclick="mlReveal()">Reveal My Story! 🎉</button>
-    </div>
-  </div>
-  <div id="madlib-story-screen" style="display:none;">
-    <div class="madlib-story" id="madlib-story-text"></div>
-    <div style="padding: 0 16px 20px; display:flex; flex-direction:column; gap:10px;">
-      <button class="btn-primary" onclick="mlReset()">Try Again with New Words 🔄</button>
-      <button class="btn-secondary" onclick="mlNext()">Try a Different Story →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════ STORY STARTER ════════════════════════════════ -->
-<div id="screen-story" class="screen">
-  <div class="ex-header">
-    <button class="back-btn" onclick="goHome()">← Back</button>
-    <div class="ex-header-info">
-      <div class="ex-header-title">📖 Story Starter</div>
-      <div class="ex-header-sub">Continue the story in your own words</div>
-    </div>
-  </div>
-  <div class="progress-bar-wrap" style="margin-top:10px;">
-    <div class="progress-bar-fill" id="ss-progress-fill" style="width:0%"></div>
-  </div>
-  <div class="progress-text" id="ss-progress-text">Story 1 of 4</div>
-
+<!-- INTERMEDIATE: Thought Prompt (fiction + non-fiction) -->
+<div id="screen-thought-prompt" class="screen">
+  <div class="ex-header"><button class="back-btn" onclick="goHome()">← Back</button><div class="ex-header-info"><div class="ex-header-title">💭 Thought Prompt</div><div class="ex-header-sub">Write 5 sentences on the given topic</div></div></div>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="tp-progress-fill" style="width:0%"></div></div>
+  <div class="progress-text" id="tp-progress-text">Prompt 1 of 2</div>
   <div class="story-prompt-card">
-    <div class="story-prompt-label">📌 Story Beginning — Read this carefully</div>
-    <div class="story-prompt-text" id="ss-prompt"></div>
+    <div class="story-prompt-text" id="tp-prompt"></div>
   </div>
-  <div class="story-hints" id="ss-hints"></div>
-  <div class="q-instruction" style="margin:0 16px 10px; display:block;">Write at least 3–5 sentences to continue the story. Use full stops, commas, and capital letters correctly.</div>
-  <textarea class="story-textarea" id="ss-textarea" placeholder="Start writing here..." oninput="ssWordCount()"></textarea>
-  <div class="word-count" id="ss-word-count">0 words</div>
+  <div class="story-hints" id="tp-hints"></div>
+  <div class="q-instruction" style="margin:0 16px 10px;">Write at least 5 complete sentences. Focus on clarity, punctuation, and interesting details.</div>
+  <textarea class="story-textarea" id="tp-textarea" placeholder="Start writing here..." oninput="tpWordCount()"></textarea>
+  <div class="word-count" id="tp-word-count">0 words</div>
   <div style="padding: 0 16px 8px;">
-    <button class="check-btn" onclick="ssSubmit()">✓ I'm Done — See Tips</button>
-    <div class="feedback-box" id="ss-feedback" style="margin-top:0;">
-      <div id="ss-feedback-main"></div>
-    </div>
+    <button class="check-btn" onclick="tpSubmit()">✓ Submit & Get Feedback</button>
+    <div class="feedback-box" id="tp-feedback"><div id="tp-feedback-main"></div></div>
   </div>
-  <button class="next-btn" id="ss-next-btn" onclick="ssNext()">Next Story →</button>
+  <button class="next-btn" id="tp-next-btn" onclick="tpNext()">Next Prompt →</button>
 </div>
 
-<!-- ════════════════════════════════ COMING SOON ════════════════════════════════ -->
-<div id="screen-coming-soon" class="screen">
-  <div class="ex-header">
-    <button class="back-btn" onclick="goHome()">← Back</button>
-    <div class="ex-header-info">
-      <div class="ex-header-title" id="cs-title">Coming Soon</div>
-    </div>
-  </div>
-  <div class="coming-soon-screen">
-    <div class="icon" id="cs-icon">🚧</div>
-    <h2 id="cs-name">Exercise Coming Soon!</h2>
-    <p id="cs-desc">This exercise is being built with care. Check back soon — it's going to be great!</p>
-    <button class="btn-primary" onclick="goHome()">← Back to Home</button>
-  </div>
-</div>
+<!-- INTERMEDIATE: Find the Error (Verb forms) reused -->
+<div id="screen-find-error-intermediate" class="screen"><div class="ex-header"><button class="back-btn" onclick="goHome()">← Back</button><div class="ex-header-info"><div class="ex-header-title">🔍 Find the Error · Intermediate</div><div class="ex-header-sub">Verb Forms & Irregular Past Tense</div></div></div><div class="progress-bar-wrap"><div class="progress-bar-fill" id="fe-int-progress-fill" style="width:0%"></div></div><div class="progress-text" id="fe-int-progress-text">Question 1 of 5</div><div class="question-card"><div class="q-meta"><span class="q-tag level">Intermediate</span><span class="q-tag topic" id="fe-int-q-topic"></span></div><div class="q-instruction">Read the sentence carefully. Choose the answer that correctly identifies the ONE error.</div><div class="q-sentence" id="fe-int-sentence"></div><div class="choices" id="fe-int-choices"></div><div class="feedback-box" id="fe-int-feedback"><div id="fe-int-feedback-main"></div><div class="feedback-explain" id="fe-int-feedback-explain"></div></div></div><button class="next-btn" id="fe-int-next-btn" onclick="feIntNext()">Next Question →</button></div>
 
-<!-- ════════════════════════════════ INTERMEDIATE PREVIEW ════════════════════════════════ -->
-<div id="screen-intermediate" class="screen">
-  <div class="ex-header">
-    <button class="back-btn" onclick="goHome()">← Back</button>
-    <div class="ex-header-info">
-      <div class="ex-header-title">⭐ Intermediate Level</div>
-      <div class="ex-header-sub">Coming soon — here's what's being built</div>
-    </div>
-  </div>
-  <div style="padding: 20px 16px 0;">
-    <div style="background: var(--navy); border-radius: var(--radius); padding: 20px; text-align:center; margin-bottom: 20px;">
-      <div style="font-size: 36px; margin-bottom: 10px;">🚧</div>
-      <div style="font-family: 'Baloo 2', cursive; font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 8px;">Intermediate Level is Coming!</div>
-      <div style="font-size: 14px; color: #b3cde8; line-height: 1.6;">Master the finer rules of written English — the skills that make the real difference in school exams and beyond.</div>
-    </div>
-
-    <div class="section-label" style="padding: 0 0 10px;">Topics being built for you</div>
-
-    <div class="int-topic-card">
-      <div class="int-topic-icon">🔗</div>
-      <div class="int-topic-body">
-        <div class="int-topic-name">FANBOYS — Coordinating Conjunctions</div>
-        <div class="int-topic-desc">For · And · Nor · But · Or · Yet · So — learn when and how to join two ideas correctly</div>
-        <div class="int-topic-example">"She studied hard, <span class="int-highlight">but</span> she did not pass the exam."</div>
-      </div>
-    </div>
-
-    <div class="int-topic-card">
-      <div class="int-topic-icon">✂️</div>
-      <div class="int-topic-body">
-        <div class="int-topic-name">Comma Splice</div>
-        <div class="int-topic-desc">Learn why you cannot join two complete sentences with just a comma — and how to fix it</div>
-        <div class="int-topic-example int-topic-error">"It was raining, we stayed inside." ✗</div>
-        <div class="int-topic-example">"It was raining, <span class="int-highlight">so</span> we stayed inside." ✓</div>
-      </div>
-    </div>
-
-    <div class="int-topic-card">
-      <div class="int-topic-icon">⚖️</div>
-      <div class="int-topic-body">
-        <div class="int-topic-name">Tricky Subject-Verb Agreement</div>
-        <div class="int-topic-desc">Neither/nor, either/or, each/every, collective nouns — the rules that confuse even good writers</div>
-        <div class="int-topic-example">"Neither the teacher <span class="int-highlight">nor</span> the students <span class="int-highlight">were</span> ready."</div>
-      </div>
-    </div>
-
-    <div class="int-topic-card">
-      <div class="int-topic-icon">🔄</div>
-      <div class="int-topic-body">
-        <div class="int-topic-name">Since vs For · In vs At vs On</div>
-        <div class="int-topic-desc">The prepositions that every English learner finds confusing — with clear rules and examples</div>
-        <div class="int-topic-example">"She has been waiting <span class="int-highlight">for</span> two hours / <span class="int-highlight">since</span> 3 o'clock."</div>
-      </div>
-    </div>
-
-    <div class="int-topic-card">
-      <div class="int-topic-icon">🎯</div>
-      <div class="int-topic-body">
-        <div class="int-topic-name">Confusable Word Pairs</div>
-        <div class="int-topic-desc">affect/effect · then/than · its/it's · their/there/they're — choose the right word every time</div>
-        <div class="int-topic-example">"The weather will <span class="int-highlight">affect</span> the match." vs "The <span class="int-highlight">effect</span> was surprising."</div>
-      </div>
-    </div>
-
-    <div class="int-topic-card">
-      <div class="int-topic-icon">📝</div>
-      <div class="int-topic-body">
-        <div class="int-topic-name">Run-On Sentences</div>
-        <div class="int-topic-desc">Spot sentences that go on too long without proper punctuation — and learn how to break them up</div>
-        <div class="int-topic-example">"Ramu went to the market he bought vegetables he came home he cooked dinner." ✗</div>
-      </div>
-    </div>
-
-    <div style="background: var(--gold-light); border-radius: var(--radius); padding: 16px; margin: 8px 0 24px; border-left: 4px solid var(--gold);">
-      <div style="font-size: 14px; font-weight: 800; color: var(--gold-dark); margin-bottom: 6px;">💡 Meanwhile — start with Beginner!</div>
-      <div style="font-size: 13px; color: var(--gold-dark); line-height: 1.6;">Master the Beginner exercises first. A strong foundation makes Intermediate much easier. Every expert was once a beginner!</div>
-    </div>
-
-    <button class="btn-primary" style="width:100%; margin-bottom: 24px;" onclick="goHome()">← Back to Exercises</button>
-  </div>
-</div>
-<div id="screen-score" class="screen">
-  <div class="score-screen">
-    <div class="score-emoji" id="score-emoji">🌟</div>
-    <div class="score-title" id="score-title">Well Done!</div>
-    <div class="score-sub" id="score-sub">You finished the exercise!</div>
-    <div class="score-big" id="score-number">4/5</div>
-    <div class="score-label" id="score-label">Correct Answers</div>
-    <div style="padding: 12px 24px 20px; background: var(--sky); border-radius: var(--radius); margin-bottom: 28px; font-size:14px; color:var(--navy); font-weight:700; line-height:1.6;" id="score-message"></div>
-    <div class="score-actions">
-      <button class="btn-primary" id="score-replay-btn" onclick="replayExercise()">Try Again 🔄</button>
-      <button class="btn-secondary" onclick="goHome()">← Choose Another Exercise</button>
-    </div>
-  </div>
-</div>
+<div id="screen-score" class="screen"><div class="score-screen"><div class="score-emoji" id="score-emoji">🌟</div><div class="score-title" id="score-title">Well Done!</div><div class="score-sub" id="score-sub"></div><div class="score-big" id="score-number"></div><div class="score-label">Correct Answers</div><div id="score-message" style="padding:12px 24px;background:var(--sky);border-radius:var(--radius);margin:0 0 28px;"></div><div class="score-actions"><button class="btn-primary" id="score-replay-btn">Try Again 🔄</button><button class="btn-secondary" onclick="goHome()">← Home</button></div></div></div>
 
 <script>
-// ══════════════════════════════════════════════════════════
-// STATE
-// ══════════════════════════════════════════════════════════
+// ========== COMPLETE JAVASCRIPT WITH ALL FEATURES ==========
 let currentLevel = 'beginner';
-let currentExercise = '';
-let currentQ = 0;
-let score = 0;
-let answered = false;
 
-// ══════════════════════════════════════════════════════════
-// NAVIGATION
-// ══════════════════════════════════════════════════════════
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0, 0);
-}
-function goHome() { showScreen('screen-home'); }
-function setLevel(level, btn) {
-  currentLevel = level;
-  document.querySelectorAll('.level-tab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-}
+// Beginner data (same as before)
+const beginnerErrorQuestions = [
+  { sentence: "Its a beautiful day outside.", topic: "Punctuation", choices: [{ text: 'Change "Its" to "It\'s"', correct: true }, { text: 'Change "beautiful" to "beauty"', correct: false }, { text: 'Add "very"', correct: false }, { text: 'Change "day" to "days"', correct: false }], explain: "Rule: 'It's' is a contraction of 'it is'." },
+  { sentence: "She bought an apple and a orange.", topic: "Articles", choices: [{ text: '"a orange" should be "an orange"', correct: true }, { text: 'Change "apple" to "an apple"', correct: false }, { text: 'Remove "and"', correct: false }, { text: 'Change "bought" to "buy"', correct: false }], explain: "Use 'an' before vowel sounds." },
+  { sentence: "He recieved a letter from his friend yesterday.", topic: "Spelling", choices: [{ text: '"recieved" should be "received"', correct: true }, { text: 'Change "letter" to "latter"', correct: false }, { text: 'Remove "yesterday"', correct: false }, { text: 'Change "friend" to "freind"', correct: false }], explain: "'Receive' follows 'i before e except after c'." },
+  { sentence: "The teacher said, please open your books.", topic: "Punctuation", choices: [{ text: 'Missing capital: "Please open"', correct: true }, { text: 'Remove "The"', correct: false }, { text: 'Change "books" to "book"', correct: false }, { text: 'Add "kindly"', correct: false }], explain: "Quoted speech should start with a capital letter." },
+  { sentence: "I have an university degree in science.", topic: "Articles", choices: [{ text: '"an university" should be "a university"', correct: true }, { text: 'Change "degree" to "diploma"', correct: false }, { text: 'Remove "in science"', correct: false }, { text: 'Change "have" to "has"', correct: false }], explain: "Use 'a' before 'university' because it sounds like 'yoo'." }
+];
 
-function showIntermediatePreview() {
-  showScreen('screen-intermediate');
-}
+const intermediateErrorQuestions = [
+  { sentence: "She speaked to the manager about the issue yesterday.", topic: "Irregular Past", choices: [{ text: '"speaked" should be "spoke"', correct: true }, { text: 'Change "manager" to "managers"', correct: false }, { text: 'Change "yesterday" to "tomorrow"', correct: false }, { text: 'Change "about" to "on"', correct: false }], explain: "Speak → spoke (irregular)." },
+  { sentence: "The children was playing in the park.", topic: "Subject-Verb", choices: [{ text: '"was playing" should be "were playing"', correct: true }, { text: 'Change "playing" to "played"', correct: false }, { text: 'Remove "the park"', correct: false }, { text: 'Change "children" to "child"', correct: false }], explain: "'Children' is plural → 'were'." },
+  { sentence: "He has went to the market already.", topic: "Past Participle", choices: [{ text: '"has went" should be "has gone"', correct: true }, { text: 'Change "market" to "store"', correct: false }, { text: 'Change "already" to "yet"', correct: false }, { text: 'Remove "He"', correct: false }], explain: "Present perfect: has/have + past participle (gone)." },
+  { sentence: "She don't like to eat spicy food.", topic: "Auxiliary", choices: [{ text: '"don\'t" should be "doesn\'t"', correct: true }, { text: 'Change "like" to "likes"', correct: false }, { text: 'Change "spicy" to "spice"', correct: false }, { text: 'Remove "to eat"', correct: false }], explain: "She/He/It + doesn't." },
+  { sentence: "I taked the bus to school this morning.", topic: "Irregular Past", choices: [{ text: '"taked" should be "took"', correct: true }, { text: 'Change "bus" to "buses"', correct: false }, { text: 'Change "morning" to "afternoon"', correct: false }, { text: 'Change "to school" to "school"', correct: false }], explain: "Take → took." }
+];
 
-function startExercise(type) {
-  currentExercise = type;
-  currentQ = 0;
-  score = 0;
-  if (type === 'find-error') { feStart(); showScreen('screen-find-error'); }
-  else if (type === 'fix-order') { foStart(); showScreen('screen-fix-order'); }
-  else if (type === 'madlibs') { mlStart(); showScreen('screen-madlibs'); }
-  else if (type === 'story') { ssStart(); showScreen('screen-story'); }
-  else if (type === 'picture') {
-    document.getElementById('cs-icon').textContent = '🖼️';
-    document.getElementById('cs-name').textContent = 'Picture Write';
-    document.getElementById('cs-title').textContent = '🖼️ Picture Write';
-    document.getElementById('cs-desc').textContent = 'Soon you will see a picture of a familiar scene — a market, a classroom, a river — and write 3–5 sentences describing what is happening. This exercise is being built now!';
-    showScreen('screen-coming-soon');
-  }
-  else if (type === 'diary') {
-    document.getElementById('cs-icon').textContent = '📔';
-    document.getElementById('cs-name').textContent = 'Character Diary';
-    document.getElementById('cs-title').textContent = '📔 Character Diary';
-    document.getElementById('cs-desc').textContent = 'You will pick a fun character — a goat, a kite, a mango tree — and write one diary entry from their point of view. Creative and fun! Coming very soon.';
-    showScreen('screen-coming-soon');
-  }
-}
+// SHRINK IT data (2 exercises)
+const shrinkQuestions = [
+  { sentence: "The girl she went to the store and she bought some milk and then she went back home and she made cookies and they were very delicious and everyone loved them.", topic: "Run-on Sentence", choices: [
+      { text: "The girl went to the store, bought milk, and went home. She made delicious cookies that everyone loved.", correct: true },
+      { text: "The girl she went to the store and bought milk and went home and made cookies they were delicious.", correct: false },
+      { text: "Going to the store, the girl bought milk, making cookies at home were delicious and everyone loved.", correct: false }
+    ], explain: "The correct version removes unnecessary repetition, fixes pronoun errors, and breaks the run-on into clear, logical sentences." },
+  { sentence: "Because he was feeling tired so he decided to take a nap but then his alarm didn't go off so he missed his meeting and his boss was angry.", topic: "Run-on & Redundancy", choices: [
+      { text: "Because he was tired, he decided to take a nap. His alarm didn't go off, so he missed his meeting and his boss was angry.", correct: true },
+      { text: "He was feeling tired so he took a nap but then his alarm didn't go off and he missed his meeting his boss was angry.", correct: false },
+      { text: "Feeling tired he napped missing meeting made boss angry.", correct: false }
+    ], explain: "The correct version removes the redundant 'so' after 'because' and properly separates clauses with periods and commas." }
+];
 
-function showScore(exerciseName) {
-  const total = currentQ;
-  const pct = Math.round((score / total) * 100);
-  document.getElementById('score-number').textContent = score + '/' + total;
-  document.getElementById('score-label').textContent = 'Correct Answers';
-  let emoji = '🌟', title = 'Excellent!', sub = '';
-  if (pct === 100) { emoji = '🏆'; title = 'Perfect Score!'; sub = 'You got every single one right!'; }
-  else if (pct >= 80) { emoji = '🌟'; title = 'Great Job!'; sub = 'You are doing really well!'; }
-  else if (pct >= 60) { emoji = '👍'; title = 'Good Effort!'; sub = 'Keep practising — you are improving!'; }
-  else { emoji = '💪'; title = 'Keep Going!'; sub = 'Every mistake helps you learn. Try again!'; }
-  document.getElementById('score-emoji').textContent = emoji;
-  document.getElementById('score-title').textContent = title;
-  document.getElementById('score-sub').textContent = sub;
-  const messages = {100:'Amazing! You found every error perfectly.', 80:'Nearly perfect! Review the ones you missed and try again.', 60:'Good try! Read the explanations for the ones you missed.', 0:'Don\'t worry — learning takes practice. Read each explanation carefully and try again!'};
-  document.getElementById('score-message').textContent = pct === 100 ? messages[100] : pct >= 80 ? messages[80] : pct >= 60 ? messages[60] : messages[0];
-  document.getElementById('score-replay-btn').onclick = () => startExercise(currentExercise);
+// THOUGHT PROMPT data (1 fiction, 1 non-fiction)
+const thoughtPrompts = [
+  { type: "Fiction", prompt: "You discover a small, hidden door in your bedroom that was never there before. When you open it, you find a tiny world inside. Describe what you see, hear, and do in the first five minutes.", hint: "💡 Use your senses: what does the tiny world look like? Are there creatures? How do you feel?" },
+  { type: "Non-Fiction", prompt: "Think about a skill you learned recently (cooking, riding a bike, playing a game, etc.). Describe the process of learning it — what was hard, what helped you improve, and how you felt when you finally succeeded.", hint: "💡 Be specific. Mention one struggle and one breakthrough moment. Use past tense." }
+];
+
+// Fix the Order beginner data
+const foQuestions = { beginner: [
+  { words: ['She', 'drinks', 'milk', 'every', 'morning'], answer: 'She drinks milk every morning' },
+  { words: ['The', 'dog', 'ran', 'across', 'the', 'field'], answer: 'The dog ran across the field' },
+  { words: ['My', 'sister', 'likes', 'to', 'read', 'books'], answer: 'My sister likes to read books' },
+  { words: ['We', 'played', 'cricket', 'yesterday', 'afternoon'], answer: 'We played cricket yesterday afternoon' },
+  { words: ['The', 'little', 'girl', 'sang', 'a', 'song'], answer: 'The little girl sang a song' }
+]};
+
+const madlibStories = [
+  { title: "The Market Day", fields: [{ label: "A person's name", hint: "Sunita, Ravi", key: "name" }, { label: "An animal", hint: "elephant, monkey", key: "animal" }, { label: "A colour", hint: "bright red", key: "colour" }, { label: "A food", hint: "mangoes", key: "food" }, { label: "An action word", hint: "jumped", key: "verb" }, { label: "A feeling", hint: "excited", key: "feeling" }], template: (f) => `One sunny morning, <b>${f.name}</b> went to the village market. A <b>${f.colour}</b> <b>${f.animal}</b> appeared! Everyone was <b>${f.feeling}</b>. The <b>${f.animal}</b> looked at the <b>${f.food}</b> and <b>${f.verb}</b> loudly. It was unusual!` }
+];
+
+const ssStories = [
+  { prompt: "Meena found an old, dusty box under her grandmother's bed.", hints: "💡 What was inside?", tips: "Use capital letters and full stops." },
+  { prompt: "It was the first day at a new school. Arjun stood at the gate.", hints: "💡 Who did he meet?", tips: "Add dialogue." }
+];
+
+// Global state variables
+let beginnerQIndex=0, beginnerScore=0, beginnerAnswered=false;
+let intQIndex=0, intScore=0, intAnswered=false;
+let shrinkIndex=0, shrinkScore=0, shrinkAnswered=false;
+let tpIndex=0, tpCompleted=0;
+let foSelectedWords=[], foCurrentWords=[], foQIndex=0, foScore=0, foAnswered=false;
+let mlCurrentIdx=0;
+let ssCurrentIdx=0;
+
+// Helper functions
+function showScreen(id) { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
+function goHome() { showScreen('screen-home'); renderHomeByLevel(); }
+function shuffle(arr) { for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
+function showScoreScreen(title, userScore, total, replayFn) {
+  document.getElementById('score-number').textContent = `${userScore}/${total}`;
+  document.getElementById('score-emoji').textContent = userScore===total?'🏆':userScore>=Math.floor(total/2)?'🌟':'👍';
+  document.getElementById('score-title').textContent = userScore===total?'Perfect!':userScore>=Math.floor(total/2)?'Good work!':'Keep practicing!';
+  document.getElementById('score-sub').textContent = `You finished ${title}`;
+  document.getElementById('score-message').innerHTML = `You got ${userScore} out of ${total} correct.`;
+  document.getElementById('score-replay-btn').onclick = () => { replayFn(); showScreen('screen-score'); };
   showScreen('screen-score');
 }
 
-function replayExercise() { startExercise(currentExercise); }
-
-// ══════════════════════════════════════════════════════════
-// FIND THE ERROR — DATA
-// ══════════════════════════════════════════════════════════
-const feQuestions = {
-  beginner: [
-    {
-      sentence: "Raju go to school every day with his friends.",
-      topic: "Verb Form",
-      instruction: "Read the sentence carefully. Choose the answer that correctly identifies the ONE grammatical error in the sentence.",
-      choices: [
-        { text: 'The word "every" should be "each"', correct: false },
-        { text: '"go" should be "goes" — because Raju is one person (he/she/it), the verb needs an -s ending', correct: true },
-        { text: '"friends" should be "friend"', correct: false },
-        { text: '"with" should be "and"', correct: false },
-      ],
-      explain: 'Rule: When the subject is he, she, or it (singular), add -s to the verb in simple present tense. Raju → he → "goes".'
-    },
-    {
-      sentence: "She dont know the answer to the question.",
-      topic: "Auxiliary Verb",
-      instruction: "Read the sentence carefully. Choose the answer that correctly identifies the ONE grammatical error in the sentence.",
-      choices: [
-        { text: '"She" should be "Her"', correct: false },
-        { text: '"question" should be "questions"', correct: false },
-        { text: '"dont" should be "doesn\'t" — the correct negative form for she/he/it is "does not" or "doesn\'t"', correct: true },
-        { text: '"know" should be "knows"', correct: false },
-      ],
-      explain: 'Rule: With he, she, or it, we use "does not" (or "doesn\'t"), never "don\'t". "Don\'t" is used with I, you, we, and they.'
-    },
-    {
-      sentence: "The children plays in the garden after school.",
-      topic: "Subject-Verb Agreement",
-      instruction: "Read the sentence carefully. Choose the answer that correctly identifies the ONE grammatical error in the sentence.",
-      choices: [
-        { text: '"garden" should be "park"', correct: false },
-        { text: '"plays" should be "play" — "children" is a plural noun, so the verb must also be plural', correct: true },
-        { text: '"after" should be "before"', correct: false },
-        { text: '"The" should be "A"', correct: false },
-      ],
-      explain: 'Rule: "Children" is the plural of "child." Plural subjects take the base form of the verb — "play," not "plays."'
-    },
-    {
-      sentence: "He gived his lunch to the hungry dog.",
-      topic: "Irregular Past Tense",
-      instruction: "Read the sentence carefully. Choose the answer that correctly identifies the ONE error in verb tense.",
-      choices: [
-        { text: '"hungry" should be "hungrier"', correct: false },
-        { text: '"his" should be "him"', correct: false },
-        { text: '"gived" should be "gave" — "give" is an irregular verb, its past tense is "gave"', correct: true },
-        { text: '"dog" should be "dogs"', correct: false },
-      ],
-      explain: 'Rule: "Give" is an irregular verb. You cannot add -ed to form its past tense. The correct past tense is "gave."'
-    },
-    {
-      sentence: "My mother cook rice and dal every evening.",
-      topic: "Verb Form",
-      instruction: "Read the sentence carefully. Choose the answer that correctly identifies the ONE grammatical error in the sentence.",
-      choices: [
-        { text: '"rice" should be "Rice"', correct: false },
-        { text: '"cook" should be "cooks" — with "my mother" (she), the verb needs an -s ending', correct: true },
-        { text: '"every" should be "each"', correct: false },
-        { text: '"and" should be "or"', correct: false },
-      ],
-      explain: 'Rule: "My mother" = she (singular). In simple present tense, singular subjects take verb + s: "cooks," not "cook."'
-    }
-  ],
-  intermediate: [
-    {
-      sentence: "Neither the teacher nor the students was ready for the surprise test.",
-      topic: "Subject-Verb Agreement",
-      instruction: "Read the sentence carefully. It contains ONE error in subject-verb agreement. Choose the answer that correctly identifies it.",
-      choices: [
-        { text: '"Neither" should be "Either"', correct: false },
-        { text: '"was" should be "were" — when using "neither...nor," the verb agrees with the subject closest to it ("students"), which is plural', correct: true },
-        { text: '"surprise" should be "surprised"', correct: false },
-        { text: '"ready" should be "prepared"', correct: false },
-      ],
-      explain: 'Rule: With "neither...nor" or "either...or," the verb agrees with the subject closest to it. Since "students" (plural) is closest, use "were."'
-    },
-    {
-      sentence: "The manager, along with his team members, are attending the conference tomorrow.",
-      topic: "Subject-Verb Agreement",
-      instruction: "Read the sentence carefully. It contains ONE error. Choose the answer that correctly identifies it.",
-      choices: [
-        { text: '"along with" should be "and"', correct: false },
-        { text: '"are" should be "is" — phrases like "along with," "together with," and "as well as" do not make the subject plural; the true subject is "the manager" (singular)', correct: true },
-        { text: '"attending" should be "attended"', correct: false },
-        { text: '"conference" should be "meeting"', correct: false },
-      ],
-      explain: 'Rule: "Along with his team members" is a parenthetical phrase, not part of the subject. The real subject is "The manager" (singular), so use "is."'
-    },
-    {
-      sentence: "She has been waiting for the bus since two hours.",
-      topic: "Preposition",
-      instruction: "Read the sentence carefully. It contains ONE error in the use of a preposition. Choose the answer that correctly identifies it.",
-      choices: [
-        { text: '"has been waiting" should be "was waiting"', correct: false },
-        { text: '"since" should be "for" — we use "for" with a period of time (two hours) and "since" with a point in time (2 o\'clock)', correct: true },
-        { text: '"bus" should be "buses"', correct: false },
-        { text: '"She" should be "Her"', correct: false },
-      ],
-      explain: 'Rule: Use "for" with durations: for two hours, for three days. Use "since" with points in time: since Monday, since 3 pm.'
-    },
-    {
-      sentence: "Each of the students have submitted their assignment on time.",
-      topic: "Subject-Verb Agreement",
-      instruction: "Read the sentence carefully. It contains ONE error. Choose the answer that correctly identifies it.",
-      choices: [
-        { text: '"their" should be "his or her"', correct: false },
-        { text: '"have" should be "has" — "each" is always singular and takes a singular verb, regardless of what follows', correct: true },
-        { text: '"submitted" should be "submitting"', correct: false },
-        { text: '"on time" should be "in time"', correct: false },
-      ],
-      explain: 'Rule: "Each" is always singular. Even when followed by "of the students," the verb must be singular: "has submitted."'
-    },
-    {
-      sentence: "The news about the floods are very disturbing for the villagers.",
-      topic: "Collective Noun",
-      instruction: "Read the sentence carefully. It contains ONE error in subject-verb agreement. Choose the answer that correctly identifies it.",
-      choices: [
-        { text: '"are" should be "is" — "news" looks plural but is actually an uncountable singular noun in English', correct: true },
-        { text: '"disturbing" should be "disturbed"', correct: false },
-        { text: '"about" should be "of"', correct: false },
-        { text: '"villagers" should be "village"', correct: false },
-      ],
-      explain: 'Rule: "News" is an uncountable noun and is always treated as singular in English, even though it ends in -s. Use "is," never "are."'
-    }
-  ]
-};
-
-// ══════════════════════════════════════════════════════════
-// FIND THE ERROR — LOGIC
-// ══════════════════════════════════════════════════════════
-function feStart() {
-  currentQ = 0; score = 0; answered = false;
-  feRenderQ();
-}
-
-function feRenderQ() {
-  const qs = feQuestions[currentLevel];
-  const q = qs[currentQ];
-  const total = qs.length;
-  document.getElementById('fe-progress-fill').style.width = (currentQ / total * 100) + '%';
-  document.getElementById('fe-progress-text').textContent = 'Question ' + (currentQ+1) + ' of ' + total;
-  document.getElementById('fe-level-label').textContent = (currentLevel === 'beginner' ? 'Beginner' : 'Intermediate') + ' · Grammar & Usage';
-  document.getElementById('fe-q-level').textContent = currentLevel === 'beginner' ? 'Beginner' : 'Intermediate';
-  document.getElementById('fe-q-topic').textContent = q.topic;
-  document.getElementById('fe-instruction').textContent = q.instruction;
-  document.getElementById('fe-sentence').textContent = q.sentence;
-  document.getElementById('fe-feedback').className = 'feedback-box';
-  document.getElementById('fe-feedback-main').textContent = '';
-  document.getElementById('fe-feedback-explain').textContent = '';
-  document.getElementById('fe-next-btn').className = 'next-btn';
-  answered = false;
-
-  const choicesEl = document.getElementById('fe-choices');
-  choicesEl.innerHTML = '';
-  const letters = ['A','B','C','D'];
-  q.choices.forEach((c, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'choice-btn';
-    btn.innerHTML = '<span class="choice-letter">' + letters[i] + '</span>' + c.text;
-    btn.onclick = () => feAnswer(btn, c.correct, q.explain);
-    choicesEl.appendChild(btn);
-  });
-}
-
-function feAnswer(btn, isCorrect, explain) {
-  if (answered) return;
-  answered = true;
-  if (isCorrect) score++;
-  document.querySelectorAll('#fe-choices .choice-btn').forEach(b => {
-    b.disabled = true;
-    const letter = b.querySelector('.choice-letter').textContent;
-  });
-  // Find and mark correct
-  document.querySelectorAll('#fe-choices .choice-btn').forEach((b, i) => {
-    const q = feQuestions[currentLevel][currentQ];
-    if (q.choices[i].correct) b.classList.add('correct');
-  });
-  if (!isCorrect) btn.classList.add('wrong');
-
-  const fb = document.getElementById('fe-feedback');
-  const fbMain = document.getElementById('fe-feedback-main');
-  const fbExplain = document.getElementById('fe-feedback-explain');
-  if (isCorrect) {
-    fb.className = 'feedback-box show correct';
-    fbMain.textContent = '✓ Correct! Well done!';
+function renderHomeByLevel() {
+  const container = document.getElementById('dynamic-cards-container');
+  if (currentLevel === 'beginner') {
+    container.innerHTML = `<div class="section-label">📘 Beginner Practice Drills</div><div class="cards-grid">
+      <div class="ex-card" onclick="startBeginnerFindError()"><div class="ex-icon">🔍</div><div class="ex-name">Find the Error</div><div class="ex-desc">Punctuation · Articles · Spelling</div><div class="ex-badge">Free</div></div>
+      <div class="ex-card" onclick="startFixOrder()"><div class="ex-icon">🔀</div><div class="ex-name">Fix the Order</div><div class="ex-desc">Tap words to build sentences</div><div class="ex-badge">Free</div></div>
+      <div class="ex-card" onclick="startMadlibs()"><div class="ex-icon">🎭</div><div class="ex-name">Silly Scribbles</div><div class="ex-desc">Fill blanks to make stories</div><div class="ex-badge">Free</div></div>
+      <div class="ex-card" onclick="startStory()"><div class="ex-icon">📖</div><div class="ex-name">Story Starter</div><div class="ex-desc">Finish the story</div><div class="ex-badge">Free</div></div>
+    </div>`;
+  } else if (currentLevel === 'intermediate') {
+    container.innerHTML = `<div class="section-label" style="color:#2b5e3b;">🌟 Intermediate Practice</div><div class="cards-grid">
+      <div class="ex-card" onclick="startIntermediateFindError()"><div class="ex-icon">🔍</div><div class="ex-name">Find the Error</div><div class="ex-desc">Verb Forms & Irregular Past</div><div class="ex-badge">Free</div></div>
+      <div class="ex-card" onclick="startShrinkIt()"><div class="ex-icon">📝</div><div class="ex-name">Shrink It</div><div class="ex-desc">Rewrite rambling sentences</div><div class="ex-badge">Free</div></div>
+      <div class="ex-card" onclick="startThoughtPrompt()"><div class="ex-icon">💭</div><div class="ex-name">Thought Prompt</div><div class="ex-desc">Write 5 sentences on a topic</div><div class="ex-badge">Free</div></div>
+    </div>`;
   } else {
-    fb.className = 'feedback-box show wrong';
-    fbMain.textContent = '✗ Not quite. The highlighted answer above is correct.';
-  }
-  fbExplain.textContent = '📚 ' + explain;
-  document.getElementById('fe-next-btn').className = 'next-btn visible';
-}
-
-function feNext() {
-  currentQ++;
-  const total = feQuestions[currentLevel].length;
-  if (currentQ >= total) {
-    document.getElementById('fe-progress-fill').style.width = '100%';
-    showScore('Find the Error');
-  } else {
-    feRenderQ();
+    container.innerHTML = `<div class="section-label" style="color:#6b2e5f;">🔒 Advanced (Preview)</div><div class="topic-preview-grid">${['FANBOYS','Comma Splice','Advanced Vocabulary','Subject-Verb','Since vs For'].map(t=>`<div class="topic-card"><div class="topic-icon">📘</div><div class="topic-name">${t}</div><div class="topic-desc">Coming soon</div><div class="ex-badge locked">🔐 Paywall</div></div>`).join('')}</div><div style="background:#f3e8f0;margin:16px;padding:16px;text-align:center;border-radius:16px;">✨ Full advanced level in next release</div>`;
   }
 }
-
-// ══════════════════════════════════════════════════════════
-// FIX THE ORDER — DATA
-// ══════════════════════════════════════════════════════════
-const foQuestions = {
-  beginner: [
-    { words: ['She', 'drinks', 'milk', 'every', 'morning'], answer: 'She drinks milk every morning', topic: 'Simple Present' },
-    { words: ['The', 'dog', 'ran', 'across', 'the', 'field'], answer: 'The dog ran across the field', topic: 'Simple Past' },
-    { words: ['My', 'sister', 'likes', 'to', 'read', 'books'], answer: 'My sister likes to read books', topic: 'Infinitive' },
-    { words: ['We', 'played', 'cricket', 'yesterday', 'afternoon'], answer: 'We played cricket yesterday afternoon', topic: 'Past Tense' },
-    { words: ['The', 'little', 'girl', 'sang', 'a', 'song'], answer: 'The little girl sang a song', topic: 'Past Tense' },
-  ],
-  intermediate: [
-    { words: ['Always', 'he', 'arrives', 'late', 'for', 'class'], answer: 'He always arrives late for class', topic: 'Adverb Position' },
-    { words: ['never', 'I', 'have', 'seen', 'such', 'a', 'beautiful', 'sunrise'], answer: 'I have never seen such a beautiful sunrise', topic: 'Perfect Tense' },
-    { words: ['The', 'book', 'that', 'she', 'borrowed', 'was', 'very', 'interesting'], answer: 'The book that she borrowed was very interesting', topic: 'Relative Clause' },
-    { words: ['Despite', 'the', 'rain', 'they', 'continued', 'their', 'journey'], answer: 'Despite the rain they continued their journey', topic: 'Concession' },
-    { words: ['Neither', 'Ram', 'nor', 'Shyam', 'was', 'present', 'in', 'class'], answer: 'Neither Ram nor Shyam was present in class', topic: 'Correlatives' },
-  ]
-};
-
-let foSelectedWords = [];
-let foCurrentWords = [];
-
-function foStart() {
-  currentQ = 0; score = 0;
-  foRenderQ();
+function setLevel(level, btn) {
+  currentLevel = level;
+  document.querySelectorAll('.level-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const hero=document.querySelector('#screen-home .hero');
+  hero.style.background = level==='beginner'?'var(--beginner-gradient)':level==='intermediate'?'var(--intermediate-gradient)':'var(--advanced-gradient)';
+  renderHomeByLevel();
 }
 
-function foRenderQ() {
-  const qs = foQuestions[currentLevel];
-  const q = qs[currentQ];
-  const total = qs.length;
-  foSelectedWords = [];
-  foCurrentWords = shuffle([...q.words]);
+// Beginner Find Error
+function startBeginnerFindError() { beginnerQIndex=0; beginnerScore=0; beginnerAnswered=false; renderBeginnerQ(); showScreen('screen-find-error-beginner'); }
+function renderBeginnerQ() { const q=beginnerErrorQuestions[beginnerQIndex]; document.getElementById('fe-begin-progress-fill').style.width=(beginnerQIndex/5*100)+'%'; document.getElementById('fe-begin-progress-text').textContent=`Question ${beginnerQIndex+1} of 5`; document.getElementById('fe-begin-q-topic').textContent=q.topic; document.getElementById('fe-begin-sentence').textContent=q.sentence; const div=document.getElementById('fe-begin-choices'); div.innerHTML=''; q.choices.forEach((c,i)=>{ const btn=document.createElement('button'); btn.className='choice-btn'; btn.innerHTML=`<span class="choice-letter">${String.fromCharCode(65+i)}</span>${c.text}`; btn.onclick=()=>{ if(beginnerAnswered)return; beginnerAnswered=true; if(c.correct)beginnerScore++; document.querySelectorAll('#fe-begin-choices .choice-btn').forEach(b=>b.disabled=true); document.querySelectorAll('#fe-begin-choices .choice-btn').forEach((b,j)=>{ if(q.choices[j].correct)b.classList.add('correct'); }); if(!c.correct)btn.classList.add('wrong'); const fb=document.getElementById('fe-begin-feedback'); fb.classList.add('show',c.correct?'correct':'wrong'); document.getElementById('fe-begin-feedback-main').textContent=c.correct?'✓ Correct!':'✗ Not quite.'; document.getElementById('fe-begin-feedback-explain').textContent=`📚 ${q.explain}`; document.getElementById('fe-begin-next-btn').classList.add('visible'); }; div.appendChild(btn); }); document.getElementById('fe-begin-feedback').className='feedback-box'; document.getElementById('fe-begin-next-btn').classList.remove('visible'); beginnerAnswered=false; }
+function feBeginNext() { beginnerQIndex++; if(beginnerQIndex>=5) showScoreScreen('Find the Error', beginnerScore,5,startBeginnerFindError); else renderBeginnerQ(); }
 
-  document.getElementById('fo-progress-fill').style.width = (currentQ / total * 100) + '%';
-  document.getElementById('fo-progress-text').textContent = 'Question ' + (currentQ+1) + ' of ' + total;
-  document.getElementById('fo-q-level').textContent = currentLevel === 'beginner' ? 'Beginner' : 'Intermediate';
-  document.getElementById('fo-q-topic').textContent = q.topic;
-  document.getElementById('fo-feedback').className = 'feedback-box';
-  document.getElementById('fo-next-btn').className = 'next-btn';
-  document.getElementById('fo-check-btn').disabled = false;
-  document.getElementById('fo-check-btn').style.opacity = '1';
-  foRenderBank();
-  foRenderAnswer();
-}
+// Intermediate Find Error
+function startIntermediateFindError() { intQIndex=0; intScore=0; intAnswered=false; renderIntermediateQ(); showScreen('screen-find-error-intermediate'); }
+function renderIntermediateQ() { const q=intermediateErrorQuestions[intQIndex]; document.getElementById('fe-int-progress-fill').style.width=(intQIndex/5*100)+'%'; document.getElementById('fe-int-progress-text').textContent=`Question ${intQIndex+1} of 5`; document.getElementById('fe-int-q-topic').textContent=q.topic; document.getElementById('fe-int-sentence').textContent=q.sentence; const div=document.getElementById('fe-int-choices'); div.innerHTML=''; q.choices.forEach((c,i)=>{ const btn=document.createElement('button'); btn.className='choice-btn'; btn.innerHTML=`<span class="choice-letter">${String.fromCharCode(65+i)}</span>${c.text}`; btn.onclick=()=>{ if(intAnswered)return; intAnswered=true; if(c.correct)intScore++; document.querySelectorAll('#fe-int-choices .choice-btn').forEach(b=>b.disabled=true); document.querySelectorAll('#fe-int-choices .choice-btn').forEach((b,j)=>{ if(q.choices[j].correct)b.classList.add('correct'); }); if(!c.correct)btn.classList.add('wrong'); const fb=document.getElementById('fe-int-feedback'); fb.classList.add('show',c.correct?'correct':'wrong'); document.getElementById('fe-int-feedback-main').textContent=c.correct?'✓ Correct!':'✗ Not quite.'; document.getElementById('fe-int-feedback-explain').textContent=`📚 ${q.explain}`; document.getElementById('fe-int-next-btn').classList.add('visible'); }; div.appendChild(btn); }); document.getElementById('fe-int-feedback').className='feedback-box'; document.getElementById('fe-int-next-btn').classList.remove('visible'); intAnswered=false; }
+function feIntNext() { intQIndex++; if(intQIndex>=5) showScoreScreen('Find the Error (Intermediate)', intScore,5,startIntermediateFindError); else renderIntermediateQ(); }
 
-function foRenderBank() {
-  const bank = document.getElementById('fo-word-bank');
-  bank.innerHTML = '';
-  foCurrentWords.forEach((w, i) => {
-    const chip = document.createElement('button');
-    chip.className = 'word-chip' + (foSelectedWords.includes(i) ? ' used' : '');
-    chip.textContent = w;
-    chip.onclick = () => foSelectWord(i);
-    bank.appendChild(chip);
-  });
-}
+// Shrink It
+function startShrinkIt() { shrinkIndex=0; shrinkScore=0; shrinkAnswered=false; renderShrinkQ(); showScreen('screen-shrink-it'); }
+function renderShrinkQ() { const q=shrinkQuestions[shrinkIndex]; document.getElementById('shrink-progress-fill').style.width=(shrinkIndex/2*100)+'%'; document.getElementById('shrink-progress-text').textContent=`Exercise ${shrinkIndex+1} of 2`; document.getElementById('shrink-sentence').textContent=q.sentence; const div=document.getElementById('shrink-choices'); div.innerHTML=''; q.choices.forEach((c,i)=>{ const btn=document.createElement('button'); btn.className='choice-btn'; btn.innerHTML=`<span class="choice-letter">${String.fromCharCode(65+i)}</span>${c.text}`; btn.onclick=()=>{ if(shrinkAnswered)return; shrinkAnswered=true; if(c.correct)shrinkScore++; document.querySelectorAll('#shrink-choices .choice-btn').forEach(b=>b.disabled=true); document.querySelectorAll('#shrink-choices .choice-btn').forEach((b,j)=>{ if(q.choices[j].correct)b.classList.add('correct'); }); if(!c.correct)btn.classList.add('wrong'); const fb=document.getElementById('shrink-feedback'); fb.classList.add('show',c.correct?'correct':'wrong'); document.getElementById('shrink-feedback-main').textContent=c.correct?'✓ Correct! That version is clear and concise.':'✗ That version still has issues.'; document.getElementById('shrink-feedback-explain').textContent=`📚 ${q.explain}`; document.getElementById('shrink-next-btn').classList.add('visible'); }; div.appendChild(btn); }); document.getElementById('shrink-feedback').className='feedback-box'; document.getElementById('shrink-next-btn').classList.remove('visible'); shrinkAnswered=false; }
+function shrinkNext() { shrinkIndex++; if(shrinkIndex>=2) showScoreScreen('Shrink It', shrinkScore,2,startShrinkIt); else renderShrinkQ(); }
 
-function foRenderAnswer() {
-  const area = document.getElementById('fo-answer-area');
-  const ph = document.getElementById('fo-placeholder');
-  area.innerHTML = '';
-  if (foSelectedWords.length === 0) {
-    area.appendChild(Object.assign(document.createElement('span'), { className: 'answer-placeholder', id: 'fo-placeholder', textContent: 'Tap words below to start...' }));
-    return;
-  }
-  foSelectedWords.forEach((idx, pos) => {
-    const chip = document.createElement('span');
-    chip.className = 'answer-word';
-    chip.textContent = foCurrentWords[idx];
-    chip.onclick = () => foRemoveWord(pos);
-    area.appendChild(chip);
-  });
-}
+// Thought Prompt
+function startThoughtPrompt() { tpIndex=0; tpCompleted=0; renderThoughtPrompt(); showScreen('screen-thought-prompt'); }
+function renderThoughtPrompt() { const p=thoughtPrompts[tpIndex]; document.getElementById('tp-progress-fill').style.width=(tpIndex/2*100)+'%'; document.getElementById('tp-progress-text').textContent=`Prompt ${tpIndex+1} of 2 (${p.type})`; document.getElementById('tp-prompt').textContent=p.prompt; document.getElementById('tp-hints').textContent=p.hint; document.getElementById('tp-textarea').value=''; document.getElementById('tp-word-count').textContent='0 words'; document.getElementById('tp-feedback').className='feedback-box'; document.getElementById('tp-next-btn').classList.remove('visible'); }
+function tpWordCount() { const count=document.getElementById('tp-textarea').value.trim().split(/\s+/).filter(w=>w).length; document.getElementById('tp-word-count').textContent=count+' word'+(count!==1?'s':''); }
+function tpSubmit() { const text=document.getElementById('tp-textarea').value.trim(); const sentences=text.split(/[.!?]+/).filter(s=>s.trim().length>0); if(sentences.length<5){ const fb=document.getElementById('tp-feedback'); fb.classList.add('show','wrong'); document.getElementById('tp-feedback-main').innerHTML='✏️ Please write at least 5 complete sentences.'; return; } tpCompleted++; const fb=document.getElementById('tp-feedback'); fb.classList.add('show','correct'); document.getElementById('tp-feedback-main').innerHTML='✓ Great effort! You wrote 5+ sentences. Read them aloud — does each sentence express a complete thought?'; document.getElementById('tp-next-btn').classList.add('visible'); }
+function tpNext() { tpIndex++; if(tpIndex>=2) showScoreScreen('Thought Prompt', tpCompleted,2,startThoughtPrompt); else renderThoughtPrompt(); }
 
-function foSelectWord(idx) {
-  if (foSelectedWords.includes(idx)) return;
-  foSelectedWords.push(idx);
-  foRenderBank();
-  foRenderAnswer();
-}
+// Fix the Order (Beginner)
+function startFixOrder() { foQIndex=0; foScore=0; foRenderQ(); showScreen('screen-fix-order'); }
+function foRenderQ() { const q=foQuestions.beginner[foQIndex]; foSelectedWords=[]; foCurrentWords=shuffle([...q.words]); document.getElementById('fo-progress-fill').style.width=(foQIndex/5*100)+'%'; document.getElementById('fo-progress-text').textContent=`Question ${foQIndex+1} of 5`; document.getElementById('fo-feedback').className='feedback-box'; document.getElementById('fo-check-btn').disabled=false; foRenderBank(); foRenderAnswer(); }
+function foRenderBank() { const bank=document.getElementById('fo-word-bank'); bank.innerHTML=''; foCurrentWords.forEach((w,i)=>{ const chip=document.createElement('button'); chip.className='word-chip'+(foSelectedWords.includes(i)?' used':''); chip.textContent=w; chip.onclick=()=>{ if(!foSelectedWords.includes(i)){ foSelectedWords.push(i); foRenderBank(); foRenderAnswer(); } }; bank.appendChild(chip); }); }
+function foRenderAnswer() { const area=document.getElementById('fo-answer-area'); area.innerHTML=''; if(foSelectedWords.length===0){ area.innerHTML='<span class="answer-placeholder">Tap words below to start...</span>'; return; } foSelectedWords.forEach((idx,pos)=>{ const chip=document.createElement('span'); chip.className='answer-word'; chip.textContent=foCurrentWords[idx]; chip.onclick=()=>{ foSelectedWords.splice(pos,1); foRenderBank(); foRenderAnswer(); }; area.appendChild(chip); }); }
+function foClear() { foSelectedWords=[]; foRenderBank(); foRenderAnswer(); document.getElementById('fo-feedback').className='feedback-box'; }
+function foCheck() { const q=foQuestions.beginner[foQIndex]; const userAnswer=foSelectedWords.map(i=>foCurrentWords[i]).join(' '); const correct=userAnswer===q.answer; if(correct)foScore++; const fb=document.getElementById('fo-feedback'); fb.classList.add('show',correct?'correct':'wrong'); document.getElementById('fo-feedback-main').textContent=correct?'✓ Perfect!':'✗ Not quite.'; document.getElementById('fo-feedback-explain').textContent=`Correct: "${q.answer}"`; document.getElementById('fo-check-btn').disabled=true; document.getElementById('fo-next-btn').classList.add('visible'); }
+function foNext() { foQIndex++; if(foQIndex>=5) showScoreScreen('Fix the Order', foScore,5,startFixOrder); else foRenderQ(); }
 
-function foRemoveWord(pos) {
-  foSelectedWords.splice(pos, 1);
-  foRenderBank();
-  foRenderAnswer();
-}
+// Madlibs
+function startMadlibs() { mlCurrentIdx=0; mlRender(); showScreen('screen-madlibs'); }
+function mlRender() { const story=madlibStories[mlCurrentIdx]; const div=document.getElementById('madlib-inputs'); div.innerHTML=`<div style="padding:10px 0 4px; font-size:16px; font-weight:800;">📖 ${story.title}</div>`; story.fields.forEach(f=>{ div.innerHTML+=`<div class="madlib-input-group"><label class="madlib-label">${f.label}</label><span class="madlib-hint">💡 ${f.hint}</span><input class="madlib-input" id="ml-${f.key}" placeholder="Type here..."></div>`; }); document.getElementById('madlib-input-screen').style.display='block'; document.getElementById('madlib-story-screen').style.display='none'; }
+function mlReveal() { const story=madlibStories[mlCurrentIdx]; const filled={}; story.fields.forEach(f=>{ filled[f.key]=document.getElementById(`ml-${f.key}`).value.trim()||`_${f.label}_`; }); document.getElementById('madlib-story-text').innerHTML=story.template(filled); document.getElementById('madlib-input-screen').style.display='none'; document.getElementById('madlib-story-screen').style.display='block'; }
+function mlReset() { mlRender(); }
+function mlNext() { mlCurrentIdx=(mlCurrentIdx+1)%madlibStories.length; mlRender(); }
 
-function foClear() {
-  foSelectedWords = [];
-  foRenderBank();
-  foRenderAnswer();
-  document.getElementById('fo-feedback').className = 'feedback-box';
-}
+// Story Starter (Beginner)
+function startStory() { ssCurrentIdx=0; ssRenderStory(); showScreen('screen-story'); }
+function ssRenderStory() { const s=ssStories[ssCurrentIdx]; document.getElementById('ss-progress-fill').style.width=(ssCurrentIdx/2*100)+'%'; document.getElementById('ss-progress-text').textContent=`Story ${ssCurrentIdx+1} of 2`; document.getElementById('ss-prompt').textContent=s.prompt; document.getElementById('ss-hints').textContent=s.hints; document.getElementById('ss-textarea').value=''; document.getElementById('ss-word-count').textContent='0 words'; document.getElementById('ss-feedback').className='feedback-box'; document.getElementById('ss-next-btn').classList.remove('visible'); }
+function ssWordCount() { const count=document.getElementById('ss-textarea').value.trim().split(/\s+/).filter(w=>w).length; document.getElementById('ss-word-count').textContent=count+' word'+(count!==1?'s':''); }
+function ssSubmit() { const text=document.getElementById('ss-textarea').value.trim(); const wc=text.split(/\s+/).filter(w=>w).length; if(wc<20){ const fb=document.getElementById('ss-feedback'); fb.classList.add('show','wrong'); document.getElementById('ss-feedback-main').innerHTML='✏️ Please write at least 20 words (about 3-5 sentences).'; return; } const fb=document.getElementById('ss-feedback'); fb.classList.add('show','correct'); document.getElementById('ss-feedback-main').innerHTML='✓ Great story! Read it aloud to check flow.'; document.getElementById('ss-next-btn').classList.add('visible'); }
+function ssNext() { ssCurrentIdx++; if(ssCurrentIdx>=2) showScoreScreen('Story Starter', 2,2,startStory); else ssRenderStory(); }
 
-function foCheck() {
-  const q = foQuestions[currentLevel][currentQ];
-  const userAnswer = foSelectedWords.map(i => foCurrentWords[i]).join(' ');
-  const correct = userAnswer === q.answer;
-  if (correct) score++;
+// Expose globals
+window.setLevel=setLevel; window.goHome=goHome; window.startBeginnerFindError=startBeginnerFindError; window.startIntermediateFindError=startIntermediateFindError; window.startShrinkIt=startShrinkIt; window.startThoughtPrompt=startThoughtPrompt; window.startFixOrder=startFixOrder; window.startMadlibs=startMadlibs; window.startStory=startStory; window.foClear=foClear; window.foCheck=foCheck; window.foNext=foNext; window.mlReveal=mlReveal; window.mlReset=mlReset; window.mlNext=mlNext; window.ssSubmit=ssSubmit; window.ssNext=ssNext; window.ssWordCount=ssWordCount; window.feBeginNext=feBeginNext; window.feIntNext=feIntNext; window.shrinkNext=shrinkNext; window.tpSubmit=tpSubmit; window.tpNext=tpNext; window.tpWordCount=tpWordCount;
 
-  const fb = document.getElementById('fo-feedback');
-  const fbMain = document.getElementById('fo-feedback-main');
-  const fbExplain = document.getElementById('fo-feedback-explain');
-
-  if (correct) {
-    fb.className = 'feedback-box show correct';
-    fbMain.textContent = '✓ Perfect! That is the correct sentence!';
-    fbExplain.textContent = '📚 "' + q.answer + '"';
-  } else {
-    fb.className = 'feedback-box show wrong';
-    fbMain.textContent = '✗ Not quite right. The correct sentence is:';
-    fbExplain.textContent = '"' + q.answer + '"';
-  }
-  document.getElementById('fo-check-btn').disabled = true;
-  document.getElementById('fo-check-btn').style.opacity = '0.5';
-  document.getElementById('fo-next-btn').className = 'next-btn visible';
-}
-
-function foNext() {
-  currentQ++;
-  if (currentQ >= foQuestions[currentLevel].length) {
-    document.getElementById('fo-progress-fill').style.width = '100%';
-    showScore('Fix the Order');
-  } else {
-    foRenderQ();
-  }
-}
-
-function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-
-// ══════════════════════════════════════════════════════════
-// MAD LIBS — DATA
-// ══════════════════════════════════════════════════════════
-const madlibStories = [
-  {
-    title: "The Market Day",
-    fields: [
-      { label: "A person's name", hint: "Example: Sunita, Ravi, Meena", key: "name" },
-      { label: "An animal", hint: "Example: elephant, monkey, cow", key: "animal" },
-      { label: "A colour", hint: "Example: bright red, shiny gold, deep blue", key: "colour" },
-      { label: "A food", hint: "Example: mangoes, samosas, chapati", key: "food" },
-      { label: "An action word (verb)", hint: "Example: jumped, laughed, sang", key: "verb" },
-      { label: "A feeling", hint: "Example: excited, confused, amazed", key: "feeling" },
-    ],
-    template: (f) => `One sunny morning, <b>${f.name}</b> went to the village market. Near the vegetable stall, a <b>${f.colour}</b> <b>${f.animal}</b> suddenly appeared! Everyone at the market was very <b>${f.feeling}</b>. The <b>${f.animal}</b> looked at the pile of fresh <b>${f.food}</b> and <b>${f.verb}</b> loudly. <b>${f.name}</b> could not stop laughing! It was the most unusual market day anyone had ever seen.`
-  },
-  {
-    title: "The Lost Kite",
-    fields: [
-      { label: "A boy's or girl's name", hint: "Example: Arjun, Priya, Deepa", key: "name" },
-      { label: "A number", hint: "Example: seven, twelve, twenty-three", key: "number" },
-      { label: "An adjective (describing word)", hint: "Example: enormous, tiny, sparkling", key: "adj" },
-      { label: "A place", hint: "Example: the river, the old temple, the school roof", key: "place" },
-      { label: "Something you find in nature", hint: "Example: a mango tree, a cloud, a bird's nest", key: "nature" },
-    ],
-    template: (f) => `<b>${f.name}</b> had been flying a kite for <b>${f.number}</b> hours when the string suddenly broke. The <b>${f.adj}</b> kite flew high into the sky and landed right on top of <b>${f.place}</b>. <b>${f.name}</b> climbed <b>${f.number}</b> steps to reach it. Hidden behind the kite was a surprise — a beautiful <b>${f.nature}</b> that nobody had noticed before! <b>${f.name}</b> carefully carried both the kite and the treasure home.`
-  },
-  {
-    title: "A Strange Visitor",
-    fields: [
-      { label: "A name", hint: "Any name you like!", key: "name" },
-      { label: "An unusual object", hint: "Example: a golden umbrella, a silver pot, a flying bicycle", key: "object" },
-      { label: "A verb (action word)", hint: "Example: whispered, danced, floated", key: "verb1" },
-      { label: "Another verb", hint: "Example: disappeared, giggled, shone", key: "verb2" },
-      { label: "A sound", hint: "Example: a loud bang, a soft hum, a gentle ring", key: "sound" },
-    ],
-    template: (f) => `One quiet evening, <b>${f.name}</b> heard <b>${f.sound}</b> at the door. When the door opened, there stood a stranger holding <b>${f.object}</b>. Without saying a word, the stranger <b>${f.verb1}</b> in the middle of the room. Suddenly, <b>${f.object}</b> <b>${f.verb2}</b> and everything in the room turned a different colour! The stranger smiled, bowed, and walked away — leaving <b>${f.object}</b> behind as a gift for <b>${f.name}</b>.`
-  }
-];
-
-let mlCurrentIdx = 0;
-
-function mlStart() {
-  mlCurrentIdx = Math.floor(Math.random() * madlibStories.length);
-  mlRender();
-}
-
-function mlNext() {
-  mlCurrentIdx = (mlCurrentIdx + 1) % madlibStories.length;
-  mlRender();
-}
-
-function mlRender() {
-  const story = madlibStories[mlCurrentIdx];
-  const inputsEl = document.getElementById('madlib-inputs');
-  inputsEl.innerHTML = '<div style="padding:10px 0 4px; font-size:16px; font-weight:800; color:var(--navy);">📖 Story: ' + story.title + '</div>';
-  story.fields.forEach(f => {
-    const div = document.createElement('div');
-    div.className = 'madlib-input-group';
-    div.innerHTML = '<label class="madlib-label">Give me <span style="color:var(--blue)">' + f.label + '</span></label>' +
-      '<span class="madlib-hint">💡 ' + f.hint + '</span>' +
-      '<input class="madlib-input" type="text" id="ml-' + f.key + '" placeholder="Type here..." autocomplete="off">';
-    inputsEl.appendChild(div);
-  });
-  document.getElementById('madlib-input-screen').style.display = 'block';
-  document.getElementById('madlib-story-screen').style.display = 'none';
-}
-
-function mlReveal() {
-  const story = madlibStories[mlCurrentIdx];
-  const filled = {};
-  for (const f of story.fields) {
-    const val = document.getElementById('ml-' + f.key).value.trim();
-    filled[f.key] = val || ('_' + f.label + '_');
-  }
-  document.getElementById('madlib-story-text').innerHTML = story.template(filled);
-  document.getElementById('madlib-input-screen').style.display = 'none';
-  document.getElementById('madlib-story-screen').style.display = 'block';
-  window.scrollTo(0,0);
-}
-
-function mlReset() {
-  mlRender();
-}
-
-// ══════════════════════════════════════════════════════════
-// STORY STARTER — DATA
-// ══════════════════════════════════════════════════════════
-const ssStories = [
-  {
-    prompt: "Meena found an old, dusty box under her grandmother's bed. When she opened it, she gasped — inside was something she had never seen before.",
-    hints: "💡 Think about: What was inside the box? What did it look like? What did Meena do next? How did she feel?",
-    tips: "✓ Great things to check: Did you start each sentence with a capital letter? Did you end each sentence with a full stop? Did you describe what was in the box clearly?"
-  },
-  {
-    prompt: "It was the first day at a new school. Arjun stood at the gate and looked at all the children playing. He took a deep breath and walked in.",
-    hints: "💡 Think about: Who did Arjun meet first? What happened during his first class? Did he make a friend? How did the day end?",
-    tips: "✓ Great things to check: Did you use words like 'then,' 'next,' 'suddenly,' or 'finally' to connect your sentences? Did you describe how Arjun felt?"
-  },
-  {
-    prompt: "The old banyan tree at the centre of the village was said to be magical. One afternoon, Priya sat under it to rest — and heard something that changed everything.",
-    hints: "💡 Think about: What did Priya hear? Was it a voice, a sound, or a song? What happened next? Was it a good or scary surprise?",
-    tips: "✓ Great things to check: Did you use interesting adjectives (describing words) to make the story exciting? Did your story have a clear ending?"
-  },
-  {
-    prompt: "The rain had stopped. In the middle of the muddy road, Ravi spotted something glittering in the sunlight. He ran towards it.",
-    hints: "💡 Think about: What was the glittering object? Where did it come from? What did Ravi decide to do with it? Did anyone else see it?",
-    tips: "✓ Great things to check: Did you use past tense throughout (found, ran, saw)? Did you include at least one dialogue line — what did a character say?"
-  }
-];
-
-let ssCurrentIdx = 0;
-
-function ssStart() {
-  ssCurrentIdx = 0;
-  ssRenderStory();
-}
-
-function ssRenderStory() {
-  const s = ssStories[ssCurrentIdx];
-  const total = ssStories.length;
-  document.getElementById('ss-progress-fill').style.width = (ssCurrentIdx / total * 100) + '%';
-  document.getElementById('ss-progress-text').textContent = 'Story ' + (ssCurrentIdx+1) + ' of ' + total;
-  document.getElementById('ss-prompt').textContent = s.prompt;
-  document.getElementById('ss-hints').textContent = s.hints;
-  document.getElementById('ss-textarea').value = '';
-  document.getElementById('ss-word-count').textContent = '0 words';
-  document.getElementById('ss-feedback').className = 'feedback-box';
-  document.getElementById('ss-next-btn').className = 'next-btn';
-}
-
-function ssWordCount() {
-  const text = document.getElementById('ss-textarea').value.trim();
-  const count = text === '' ? 0 : text.split(/\s+/).length;
-  document.getElementById('ss-word-count').textContent = count + ' word' + (count !== 1 ? 's' : '');
-}
-
-function ssSubmit() {
-  const text = document.getElementById('ss-textarea').value.trim();
-  const wordCount = text === '' ? 0 : text.split(/\s+/).length;
-  const s = ssStories[ssCurrentIdx];
-  const fb = document.getElementById('ss-feedback');
-  const fbMain = document.getElementById('ss-feedback-main');
-
-  if (wordCount < 10) {
-    fb.className = 'feedback-box show wrong';
-    fbMain.innerHTML = '✏️ Please write a little more — at least 3–5 sentences to continue the story well!';
-    return;
-  }
-
-  fb.className = 'feedback-box show correct';
-  fbMain.innerHTML = '✓ Well done for writing your story!<br><br>' + s.tips + '<br><br>📖 Read your story out loud — does it flow well? Does it make sense?';
-  document.getElementById('ss-next-btn').className = 'next-btn visible';
-}
-
-function ssNext() {
-  ssCurrentIdx++;
-  if (ssCurrentIdx >= ssStories.length) {
-    currentQ = ssStories.length;
-    score = ssStories.length; // All stories completed = full score
-    showScore('Story Starter');
-  } else {
-    ssRenderStory();
-  }
-}
+renderHomeByLevel();
 </script>
 </body>
 </html>
