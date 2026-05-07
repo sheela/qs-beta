@@ -529,7 +529,7 @@
 <div id="screen-home" class="screen active">
   <div class="hero" id="hero-bg" style="background: var(--beginner-gradient);">
     <h1>Write Better.<br>Dream Bigger.</h1>
-    <p>Fun exercises to help you write English with confidence. One step at a time.</p>
+    <p>Fun exercises to help you write English with confidence — one step at a time.</p>
     <div class="level-tabs">
       <button class="level-tab active" onclick="setLevel('beginner', this)">Beginner</button>
       <button class="level-tab" onclick="setLevel('intermediate', this)">Intermediate</button>
@@ -539,7 +539,7 @@
   <div id="dynamic-cards-container"></div>
 </div>
 
-<!-- BEGINNER SCREENS (fully restored) -->
+<!-- BEGINNER SCREENS -->
 <div id="screen-find-error-beginner" class="screen"><div class="ex-header"><button class="back-btn" onclick="goHome()">← Back</button><div class="ex-header-info"><div class="ex-header-title">🔍 Find the Error · Beginner</div><div class="ex-header-sub">Punctuation · Articles · Spelling</div></div></div><div class="progress-bar-wrap"><div class="progress-bar-fill" id="fe-begin-progress-fill" style="width:0%"></div></div><div class="progress-text" id="fe-begin-progress-text">Question 1 of 5</div><div class="question-card"><div class="q-meta"><span class="q-tag level">Beginner</span><span class="q-tag topic" id="fe-begin-q-topic"></span></div><div class="q-instruction">Read the sentence carefully. Choose the answer that correctly identifies the ONE error.</div><div class="q-sentence" id="fe-begin-sentence"></div><div class="choices" id="fe-begin-choices"></div><div class="feedback-box" id="fe-begin-feedback"><div id="fe-begin-feedback-main"></div><div class="feedback-explain" id="fe-begin-feedback-explain"></div></div></div><button class="next-btn" id="fe-begin-next-btn" onclick="feBeginNext()">Next Question →</button></div>
 
 <div id="screen-fix-order" class="screen"><div class="ex-header"><button class="back-btn" onclick="goHome()">← Back</button><div class="ex-header-info"><div class="ex-header-title">🔀 Fix the Order</div><div class="ex-header-sub">Tap words in the right order</div></div></div><div class="progress-bar-wrap"><div class="progress-bar-fill" id="fo-progress-fill" style="width:0%"></div></div><div class="progress-text" id="fo-progress-text">Question 1 of 5</div><div class="question-card"><div class="q-meta"><span class="q-tag level">Beginner</span><span class="q-tag topic">Word Order</span></div><div class="q-instruction">Tap the words below in the correct order to build the sentence.</div><div class="answer-area" id="fo-answer-area"><span class="answer-placeholder">Tap words below to start...</span></div><button class="clear-btn" onclick="foClear()">✕ Clear all</button><div class="word-bank" id="fo-word-bank"></div><button class="check-btn" id="fo-check-btn" onclick="foCheck()">✓ Check My Answer</button><div class="feedback-box" id="fo-feedback"><div id="fo-feedback-main"></div><div class="feedback-explain" id="fo-feedback-explain"></div></div></div><button class="next-btn" id="fo-next-btn" onclick="foNext()">Next Question →</button></div>
@@ -548,50 +548,65 @@
 
 <div id="screen-story" class="screen"><div class="ex-header"><button class="back-btn" onclick="goHome()">← Back</button><div class="ex-header-info"><div class="ex-header-title">📖 Story Starter</div><div class="ex-header-sub">Continue the story in your own words</div></div></div><div class="progress-bar-wrap"><div class="progress-bar-fill" id="ss-progress-fill" style="width:0%"></div></div><div class="progress-text" id="ss-progress-text">Story 1 of 4</div><div class="story-prompt-card"><div class="story-prompt-text" id="ss-prompt"></div></div><div class="story-hints" id="ss-hints"></div><div class="q-instruction" style="margin:0 16px 10px;">Write at least 3–5 sentences to continue the story.</div><textarea class="story-textarea" id="ss-textarea" placeholder="Start writing here..." oninput="ssWordCount()"></textarea><div class="word-count" id="ss-word-count">0 words</div><div style="padding: 0 16px 8px;"><button class="check-btn" onclick="ssSubmit()">✓ I'm Done — See Tips</button><div class="feedback-box" id="ss-feedback"><div id="ss-feedback-main"></div></div></div><button class="next-btn" id="ss-next-btn" onclick="ssNext()">Next Story →</button></div>
 
-<!-- INTERMEDIATE: Shrink It (rewrite run-on sentences with multiple choice) -->
-<div id="screen-shrink-it" class="screen">
-  <div class="ex-header"><button class="back-btn" onclick="goHome()">← Back</button><div class="ex-header-info"><div class="ex-header-title">📝 Shrink It</div><div class="ex-header-sub">Rewrite the rambling sentence — choose the clearest, correct version</div></div></div>
-  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="shrink-progress-fill" style="width:0%"></div></div>
-  <div class="progress-text" id="shrink-progress-text">Exercise 1 of 2</div>
-  <div class="question-card">
-    <div class="q-meta"><span class="q-tag level">Intermediate</span><span class="q-tag topic">Concise Rewriting</span></div>
-    <div class="q-instruction">This sentence is too long and messy. Choose the option that best restates the meaning clearly and correctly.</div>
-    <div class="q-sentence runon-sentence" id="shrink-sentence"></div>
-    <div class="choices" id="shrink-choices"></div>
-    <div class="feedback-box" id="shrink-feedback"><div id="shrink-feedback-main"></div><div class="feedback-explain" id="shrink-feedback-explain"></div></div>
-  </div>
-  <button class="next-btn" id="shrink-next-btn" onclick="shrinkNext()">Next Exercise →</button>
-</div>
+<!-- INTERMEDIATE SCREENS -->
+<div id="screen-shrink-it" class="screen"><div class="ex-header"><button class="back-btn" onclick="goHome()">← Back</button><div class="ex-header-info"><div class="ex-header-title">📝 Shrink It</div><div class="ex-header-sub">Rewrite the rambling sentence — choose the clearest, correct version</div></div></div><div class="progress-bar-wrap"><div class="progress-bar-fill" id="shrink-progress-fill" style="width:0%"></div></div><div class="progress-text" id="shrink-progress-text">Exercise 1 of 2</div><div class="question-card"><div class="q-meta"><span class="q-tag level">Intermediate</span><span class="q-tag topic">Concise Rewriting</span></div><div class="q-instruction">This sentence is too long and messy. Choose the option that best restates the meaning clearly and correctly.</div><div class="q-sentence runon-sentence" id="shrink-sentence"></div><div class="choices" id="shrink-choices"></div><div class="feedback-box" id="shrink-feedback"><div id="shrink-feedback-main"></div><div class="feedback-explain" id="shrink-feedback-explain"></div></div></div><button class="next-btn" id="shrink-next-btn" onclick="shrinkNext()">Next Exercise →</button></div>
 
-<!-- INTERMEDIATE: Thought Prompt (fiction + non-fiction) -->
-<div id="screen-thought-prompt" class="screen">
-  <div class="ex-header"><button class="back-btn" onclick="goHome()">← Back</button><div class="ex-header-info"><div class="ex-header-title">💭 Thought Prompt</div><div class="ex-header-sub">Write 5 sentences on the given topic</div></div></div>
-  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="tp-progress-fill" style="width:0%"></div></div>
-  <div class="progress-text" id="tp-progress-text">Prompt 1 of 2</div>
-  <div class="story-prompt-card">
-    <div class="story-prompt-text" id="tp-prompt"></div>
-  </div>
-  <div class="story-hints" id="tp-hints"></div>
-  <div class="q-instruction" style="margin:0 16px 10px;">Write at least 5 complete sentences. Focus on clarity, punctuation, and interesting details.</div>
-  <textarea class="story-textarea" id="tp-textarea" placeholder="Start writing here..." oninput="tpWordCount()"></textarea>
-  <div class="word-count" id="tp-word-count">0 words</div>
-  <div style="padding: 0 16px 8px;">
-    <button class="check-btn" onclick="tpSubmit()">✓ Submit & Get Feedback</button>
-    <div class="feedback-box" id="tp-feedback"><div id="tp-feedback-main"></div></div>
-  </div>
-  <button class="next-btn" id="tp-next-btn" onclick="tpNext()">Next Prompt →</button>
-</div>
+<div id="screen-thought-prompt" class="screen"><div class="ex-header"><button class="back-btn" onclick="goHome()">← Back</button><div class="ex-header-info"><div class="ex-header-title">💭 Thought Prompt</div><div class="ex-header-sub">Write 5 sentences on the given topic</div></div></div><div class="progress-bar-wrap"><div class="progress-bar-fill" id="tp-progress-fill" style="width:0%"></div></div><div class="progress-text" id="tp-progress-text">Prompt 1 of 2</div><div class="story-prompt-card"><div class="story-prompt-text" id="tp-prompt"></div></div><div class="story-hints" id="tp-hints"></div><div class="q-instruction" style="margin:0 16px 10px;">Write at least 5 complete sentences. Focus on clarity, punctuation, and interesting details.</div><textarea class="story-textarea" id="tp-textarea" placeholder="Start writing here..." oninput="tpWordCount()"></textarea><div class="word-count" id="tp-word-count">0 words</div><div style="padding: 0 16px 8px;"><button class="check-btn" onclick="tpSubmit()">✓ Submit & Get Feedback</button><div class="feedback-box" id="tp-feedback"><div id="tp-feedback-main"></div></div></div><button class="next-btn" id="tp-next-btn" onclick="tpNext()">Next Prompt →</button></div>
 
-<!-- INTERMEDIATE: Find the Error (Verb forms) reused -->
 <div id="screen-find-error-intermediate" class="screen"><div class="ex-header"><button class="back-btn" onclick="goHome()">← Back</button><div class="ex-header-info"><div class="ex-header-title">🔍 Find the Error · Intermediate</div><div class="ex-header-sub">Verb Forms & Irregular Past Tense</div></div></div><div class="progress-bar-wrap"><div class="progress-bar-fill" id="fe-int-progress-fill" style="width:0%"></div></div><div class="progress-text" id="fe-int-progress-text">Question 1 of 5</div><div class="question-card"><div class="q-meta"><span class="q-tag level">Intermediate</span><span class="q-tag topic" id="fe-int-q-topic"></span></div><div class="q-instruction">Read the sentence carefully. Choose the answer that correctly identifies the ONE error.</div><div class="q-sentence" id="fe-int-sentence"></div><div class="choices" id="fe-int-choices"></div><div class="feedback-box" id="fe-int-feedback"><div id="fe-int-feedback-main"></div><div class="feedback-explain" id="fe-int-feedback-explain"></div></div></div><button class="next-btn" id="fe-int-next-btn" onclick="feIntNext()">Next Question →</button></div>
 
 <div id="screen-score" class="screen"><div class="score-screen"><div class="score-emoji" id="score-emoji">🌟</div><div class="score-title" id="score-title">Well Done!</div><div class="score-sub" id="score-sub"></div><div class="score-big" id="score-number"></div><div class="score-label">Correct Answers</div><div id="score-message" style="padding:12px 24px;background:var(--sky);border-radius:var(--radius);margin:0 0 28px;"></div><div class="score-actions"><button class="btn-primary" id="score-replay-btn">Try Again 🔄</button><button class="btn-secondary" onclick="goHome()">← Home</button></div></div></div>
 
 <script>
-// ========== COMPLETE JAVASCRIPT WITH ALL FEATURES ==========
+// ========== COMPLETE JAVASCRIPT WITH FIXED ARTICLE HANDLING & CAPITALIZATION ==========
 let currentLevel = 'beginner';
 
-// Beginner data (same as before)
+/**
+ * FIXED #1: Function to choose correct article (a/an) based on the SOUND of the following word
+ * This solves the "a orange" → "an orange" problem
+ */
+function getArticleForWord(word) {
+  if (!word || word.length === 0) return 'a';
+  
+  const lowerWord = word.toLowerCase();
+  // Vowel sounds that require "an" (including silent-h words)
+  const vowelSounds = /^([aeiou]|hour|honest|honor|heir|herb)/i;
+  
+  // Special case for words that start with 'u' but have a 'you' sound (university, unicorn)
+  const youSound = /^uni|^use|^usu|^utili|^euro/i;
+  
+  if (vowelSounds.test(lowerWord) && !youSound.test(lowerWord)) {
+    return 'an';
+  }
+  return 'a';
+}
+
+/**
+ * FIXED #2: Function to capitalize the first letter of a string
+ * This solves the "anju" → "Anju" problem for names
+ */
+function capitalizeFirstLetter(str) {
+  if (!str || str.length === 0) return str;
+  // If the string is already properly capitalized (first letter uppercase, rest lowercase), leave it
+  // Otherwise, capitalize only the first letter and leave the rest as is
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+/**
+ * Helper to process a value based on field type
+ * For name fields, we capitalize the first letter
+ */
+function processFieldValue(value, fieldKey) {
+  if (!value || value.length === 0) return value;
+  
+  // For name fields, capitalize the first letter
+  if (fieldKey === 'name') {
+    return capitalizeFirstLetter(value);
+  }
+  return value;
+}
+
+// Beginner data
 const beginnerErrorQuestions = [
   { sentence: "Its a beautiful day outside.", topic: "Punctuation", choices: [{ text: 'Change "Its" to "It\'s"', correct: true }, { text: 'Change "beautiful" to "beauty"', correct: false }, { text: 'Add "very"', correct: false }, { text: 'Change "day" to "days"', correct: false }], explain: "Rule: 'It's' is a contraction of 'it is'." },
   { sentence: "She bought an apple and a orange.", topic: "Articles", choices: [{ text: '"a orange" should be "an orange"', correct: true }, { text: 'Change "apple" to "an apple"', correct: false }, { text: 'Remove "and"', correct: false }, { text: 'Change "bought" to "buy"', correct: false }], explain: "Use 'an' before vowel sounds." },
@@ -608,7 +623,6 @@ const intermediateErrorQuestions = [
   { sentence: "I taked the bus to school this morning.", topic: "Irregular Past", choices: [{ text: '"taked" should be "took"', correct: true }, { text: 'Change "bus" to "buses"', correct: false }, { text: 'Change "morning" to "afternoon"', correct: false }, { text: 'Change "to school" to "school"', correct: false }], explain: "Take → took." }
 ];
 
-// SHRINK IT data (2 exercises)
 const shrinkQuestions = [
   { sentence: "The girl she went to the store and she bought some milk and then she went back home and she made cookies and they were very delicious and everyone loved them.", topic: "Run-on Sentence", choices: [
       { text: "The girl went to the store, bought milk, and went home. She made delicious cookies that everyone loved.", correct: true },
@@ -622,13 +636,11 @@ const shrinkQuestions = [
     ], explain: "The correct version removes the redundant 'so' after 'because' and properly separates clauses with periods and commas." }
 ];
 
-// THOUGHT PROMPT data (1 fiction, 1 non-fiction)
 const thoughtPrompts = [
   { type: "Fiction", prompt: "You discover a small, hidden door in your bedroom that was never there before. When you open it, you find a tiny world inside. Describe what you see, hear, and do in the first five minutes.", hint: "💡 Use your senses: what does the tiny world look like? Are there creatures? How do you feel?" },
   { type: "Non-Fiction", prompt: "Think about a skill you learned recently (cooking, riding a bike, playing a game, etc.). Describe the process of learning it — what was hard, what helped you improve, and how you felt when you finally succeeded.", hint: "💡 Be specific. Mention one struggle and one breakthrough moment. Use past tense." }
 ];
 
-// Fix the Order beginner data
 const foQuestions = { beginner: [
   { words: ['She', 'drinks', 'milk', 'every', 'morning'], answer: 'She drinks milk every morning' },
   { words: ['The', 'dog', 'ran', 'across', 'the', 'field'], answer: 'The dog ran across the field' },
@@ -637,13 +649,19 @@ const foQuestions = { beginner: [
   { words: ['The', 'little', 'girl', 'sang', 'a', 'song'], answer: 'The little girl sang a song' }
 ]};
 
+/**
+ * FIXED Mad Libs stories with proper article handling AND name capitalization
+ * The template now uses getArticleForWord() for correct "a"/"an" usage
+ */
 const madlibStories = [
-  { title: "The Market Day", fields: [{ label: "A person's name", hint: "Sunita, Ravi", key: "name" }, { label: "An animal", hint: "elephant, monkey", key: "animal" }, { label: "A colour", hint: "bright red", key: "colour" }, { label: "A food", hint: "mangoes", key: "food" }, { label: "An action word", hint: "jumped", key: "verb" }, { label: "A feeling", hint: "excited", key: "feeling" }], template: (f) => `One sunny morning, <b>${f.name}</b> went to the village market. A <b>${f.colour}</b> <b>${f.animal}</b> appeared! Everyone was <b>${f.feeling}</b>. The <b>${f.animal}</b> looked at the <b>${f.food}</b> and <b>${f.verb}</b> loudly. It was unusual!` }
+  { title: "The Market Day", fields: [{ label: "A person's name", hint: "Sunita, Ravi, Anju", key: "name" }, { label: "An animal", hint: "elephant, monkey, tiger, orangutan", key: "animal" }, { label: "A colour", hint: "bright red, orange, purple", key: "colour" }, { label: "A food", hint: "mangoes, oranges, bananas", key: "food" }, { label: "An action word (past tense)", hint: "jumped, ate, danced", key: "verb" }, { label: "A feeling", hint: "excited, scared, amazed", key: "feeling" }], 
+    // FIXED: Uses getArticleForWord() to choose correct article based on the colour word
+    template: (f) => `One sunny morning, <b>${f.name}</b> went to the village market. ${getArticleForWord(f.colour).charAt(0).toUpperCase() + getArticleForWord(f.colour).slice(1)} <b>${f.colour}</b> <b>${f.animal}</b> appeared! Everyone was <b>${f.feeling}</b>. The <b>${f.animal}</b> looked at the <b>${f.food}</b> and <b>${f.verb}</b> loudly. It was the most unusual market day anyone had ever seen!` }
 ];
 
 const ssStories = [
-  { prompt: "Meena found an old, dusty box under her grandmother's bed.", hints: "💡 What was inside?", tips: "Use capital letters and full stops." },
-  { prompt: "It was the first day at a new school. Arjun stood at the gate.", hints: "💡 Who did he meet?", tips: "Add dialogue." }
+  { prompt: "Meena found an old, dusty box under her grandmother's bed. When she opened it, she gasped — inside was something she had never seen before.", hints: "💡 What was inside the box? What did it look like? What did Meena do next?", tips: "✓ Great things to check: Did you start each sentence with a capital letter? Did you end each sentence with a full stop?" },
+  { prompt: "It was the first day at a new school. Arjun stood at the gate and looked at all the children playing. He took a deep breath and walked in.", hints: "💡 Who did Arjun meet first? What happened during his first class? Did he make a friend?", tips: "✓ Did you use words like 'then,' 'next,' or 'suddenly' to connect your sentences?" }
 ];
 
 // Global state variables
@@ -655,7 +673,6 @@ let foSelectedWords=[], foCurrentWords=[], foQIndex=0, foScore=0, foAnswered=fal
 let mlCurrentIdx=0;
 let ssCurrentIdx=0;
 
-// Helper functions
 function showScreen(id) { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
 function goHome() { showScreen('screen-home'); renderHomeByLevel(); }
 function shuffle(arr) { for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
@@ -719,7 +736,7 @@ function tpWordCount() { const count=document.getElementById('tp-textarea').valu
 function tpSubmit() { const text=document.getElementById('tp-textarea').value.trim(); const sentences=text.split(/[.!?]+/).filter(s=>s.trim().length>0); if(sentences.length<5){ const fb=document.getElementById('tp-feedback'); fb.classList.add('show','wrong'); document.getElementById('tp-feedback-main').innerHTML='✏️ Please write at least 5 complete sentences.'; return; } tpCompleted++; const fb=document.getElementById('tp-feedback'); fb.classList.add('show','correct'); document.getElementById('tp-feedback-main').innerHTML='✓ Great effort! You wrote 5+ sentences. Read them aloud — does each sentence express a complete thought?'; document.getElementById('tp-next-btn').classList.add('visible'); }
 function tpNext() { tpIndex++; if(tpIndex>=2) showScoreScreen('Thought Prompt', tpCompleted,2,startThoughtPrompt); else renderThoughtPrompt(); }
 
-// Fix the Order (Beginner)
+// Fix the Order
 function startFixOrder() { foQIndex=0; foScore=0; foRenderQ(); showScreen('screen-fix-order'); }
 function foRenderQ() { const q=foQuestions.beginner[foQIndex]; foSelectedWords=[]; foCurrentWords=shuffle([...q.words]); document.getElementById('fo-progress-fill').style.width=(foQIndex/5*100)+'%'; document.getElementById('fo-progress-text').textContent=`Question ${foQIndex+1} of 5`; document.getElementById('fo-feedback').className='feedback-box'; document.getElementById('fo-check-btn').disabled=false; foRenderBank(); foRenderAnswer(); }
 function foRenderBank() { const bank=document.getElementById('fo-word-bank'); bank.innerHTML=''; foCurrentWords.forEach((w,i)=>{ const chip=document.createElement('button'); chip.className='word-chip'+(foSelectedWords.includes(i)?' used':''); chip.textContent=w; chip.onclick=()=>{ if(!foSelectedWords.includes(i)){ foSelectedWords.push(i); foRenderBank(); foRenderAnswer(); } }; bank.appendChild(chip); }); }
@@ -728,14 +745,28 @@ function foClear() { foSelectedWords=[]; foRenderBank(); foRenderAnswer(); docum
 function foCheck() { const q=foQuestions.beginner[foQIndex]; const userAnswer=foSelectedWords.map(i=>foCurrentWords[i]).join(' '); const correct=userAnswer===q.answer; if(correct)foScore++; const fb=document.getElementById('fo-feedback'); fb.classList.add('show',correct?'correct':'wrong'); document.getElementById('fo-feedback-main').textContent=correct?'✓ Perfect!':'✗ Not quite.'; document.getElementById('fo-feedback-explain').textContent=`Correct: "${q.answer}"`; document.getElementById('fo-check-btn').disabled=true; document.getElementById('fo-next-btn').classList.add('visible'); }
 function foNext() { foQIndex++; if(foQIndex>=5) showScoreScreen('Fix the Order', foScore,5,startFixOrder); else foRenderQ(); }
 
-// Madlibs
+// Madlibs - FIXED with both article handling AND name capitalization
 function startMadlibs() { mlCurrentIdx=0; mlRender(); showScreen('screen-madlibs'); }
 function mlRender() { const story=madlibStories[mlCurrentIdx]; const div=document.getElementById('madlib-inputs'); div.innerHTML=`<div style="padding:10px 0 4px; font-size:16px; font-weight:800;">📖 ${story.title}</div>`; story.fields.forEach(f=>{ div.innerHTML+=`<div class="madlib-input-group"><label class="madlib-label">${f.label}</label><span class="madlib-hint">💡 ${f.hint}</span><input class="madlib-input" id="ml-${f.key}" placeholder="Type here..."></div>`; }); document.getElementById('madlib-input-screen').style.display='block'; document.getElementById('madlib-story-screen').style.display='none'; }
-function mlReveal() { const story=madlibStories[mlCurrentIdx]; const filled={}; story.fields.forEach(f=>{ filled[f.key]=document.getElementById(`ml-${f.key}`).value.trim()||`_${f.label}_`; }); document.getElementById('madlib-story-text').innerHTML=story.template(filled); document.getElementById('madlib-input-screen').style.display='none'; document.getElementById('madlib-story-screen').style.display='block'; }
+function mlReveal() { 
+  const story=madlibStories[mlCurrentIdx]; 
+  const filled={}; 
+  story.fields.forEach(f=>{ 
+    let rawValue = document.getElementById(`ml-${f.key}`).value.trim();
+    if (!rawValue) {
+      rawValue = `_${f.label}_`;
+    }
+    // Process the value based on field type (capitalize names)
+    filled[f.key] = processFieldValue(rawValue, f.key);
+  }); 
+  document.getElementById('madlib-story-text').innerHTML=story.template(filled); 
+  document.getElementById('madlib-input-screen').style.display='none'; 
+  document.getElementById('madlib-story-screen').style.display='block'; 
+}
 function mlReset() { mlRender(); }
 function mlNext() { mlCurrentIdx=(mlCurrentIdx+1)%madlibStories.length; mlRender(); }
 
-// Story Starter (Beginner)
+// Story Starter
 function startStory() { ssCurrentIdx=0; ssRenderStory(); showScreen('screen-story'); }
 function ssRenderStory() { const s=ssStories[ssCurrentIdx]; document.getElementById('ss-progress-fill').style.width=(ssCurrentIdx/2*100)+'%'; document.getElementById('ss-progress-text').textContent=`Story ${ssCurrentIdx+1} of 2`; document.getElementById('ss-prompt').textContent=s.prompt; document.getElementById('ss-hints').textContent=s.hints; document.getElementById('ss-textarea').value=''; document.getElementById('ss-word-count').textContent='0 words'; document.getElementById('ss-feedback').className='feedback-box'; document.getElementById('ss-next-btn').classList.remove('visible'); }
 function ssWordCount() { const count=document.getElementById('ss-textarea').value.trim().split(/\s+/).filter(w=>w).length; document.getElementById('ss-word-count').textContent=count+' word'+(count!==1?'s':''); }
