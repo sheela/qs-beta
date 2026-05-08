@@ -702,7 +702,7 @@ function renderHomeByLevel() {
       <div class="ex-card" onclick="startThoughtPrompt()"><div class="ex-icon">💭</div><div class="ex-name">Thought Prompt</div><div class="ex-desc">Write 5 sentences on a topic</div><div class="ex-badge">Free</div></div>
     </div>`;
   } else {
-    container.innerHTML = `<div class="section-label" style="color:#6b2e5f;">🔒 Advanced (Preview)</div><div class="topic-preview-grid">${['FANBOYS','Comma Splice','Advanced Vocabulary','Subject-Verb','Since vs For'].map(t=>`<div class="topic-card"><div class="topic-icon">📘</div><div class="topic-name">${t}</div><div class="topic-desc">Coming soon</div><div class="ex-badge locked">🔐 Paywall</div></div>`).join('')}</div><div style="background:#f3e8f0;margin:16px;padding:16px;text-align:center;border-radius:16px;">✨ Full advanced level in next release</div>`;
+    container.innerHTML = `<div class="section-label" style="color:#6b2e5f;">🔒 Advanced (Preview)</div><div class="topic-preview-grid">${['FANBOYS','Comma Splice','Advanced Vocabulary','Subject-Verb','Since vs For'].map(t=>`<div class="topic-card"><div class="topic-icon">📘</div><div class="topic-name">${t}</div><div class="topic-desc">Coming soon</div><div class="ex-badge locked">🔐 </div></div>`).join('')}</div><div style="background:#f3e8f0;margin:16px;padding:16px;text-align:center;border-radius:16px;">✨ Full advanced level in next release</div>`;
   }
 }
 function setLevel(level, btn) {
